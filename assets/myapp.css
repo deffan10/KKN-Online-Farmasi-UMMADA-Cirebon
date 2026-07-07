@@ -1,3 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --bs-primary: #03a49b !important;
+  --bs-primary-rgb: 3, 164, 155 !important;
+  --bs-link-color: #03a49b !important;
+  --bs-link-hover-color: #028079 !important;
+  --bs-body-font-family: 'Poppins', sans-serif !important;
+}
+
+body, input, select, textarea, button, .navigation, .sidebar-wrapper, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Primary color overrides */
+.text-primary {
+  color: #03a49b !important;
+}
+
+.bg-primary {
+  background-color: #03a49b !important;
+}
+
+.border-primary {
+  border-color: #03a49b !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #03a49b !important;
+  border-color: #03a49b !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+  background-color: #028079 !important;
+  border-color: #028079 !important;
+  color: #fff !important;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.25rem rgba(3, 164, 155, 0.25) !important;
+}
+
+.btn-outline-primary {
+  color: #03a49b !important;
+  border-color: #03a49b !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active {
+  background-color: #03a49b !important;
+  border-color: #03a49b !important;
+  color: #fff !important;
+}
+
+/* Sidebar active link */
+.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link {
+  background-color: #03a49b !important;
+  color: #fff !important;
+}
+
+.sidebar-wrapper .menu .sidebar-item.active .sidebar-link i,
+.sidebar-wrapper .menu .sidebar-item.active .sidebar-link svg {
+  fill: #fff !important;
+  color: #fff !important;
+}
+
+/* Form controls */
+.form-control:focus, .form-select:focus {
+  border-color: #03a49b !important;
+  box-shadow: 0 0 0 0.25rem rgba(3, 164, 155, 0.25) !important;
+}
+
+.form-check-input:checked {
+  background-color: #03a49b !important;
+  border-color: #03a49b !important;
+}
+
+/* Pagination */
+.page-item.active .page-link {
+  background-color: #03a49b !important;
+  border-color: #03a49b !important;
+  color: #fff !important;
+}
+
+.page-link {
+  color: #03a49b !important;
+}
+
+.page-link:hover {
+  color: #028079 !important;
+}
+
+/* Dropdown items active */
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #03a49b !important;
+  color: #fff !important;
+}
+
+/* Progress bar */
+.progress-bar {
+  background-color: #03a49b !important;
+}
+
+/* Custom cards or links on dashboard */
+a {
+  color: #03a49b;
+}
+a:hover {
+  color: #028079;
+}
+
 .row-tengah {
   vertical-align: middle;
 }
