@@ -1,7 +1,9 @@
 <?php
 
 // Pastikan Bootstrap JS lokal dipanggil sebelum plugin/custom lain
-echo "<script src='" . base_url('assets/plugins/bootstrap.bundle.min.js') . "'></script>\n";
+if (!isset($no_bootstrap)) {
+    echo "<script src='" . base_url('assets/plugins/bootstrap.bundle.min.js') . "'></script>\n";
+}
 
 $tmpImport = isset($web['importPlugins']) ? $web['importPlugins'] : array();
 if (count($tmpImport) > 0) {

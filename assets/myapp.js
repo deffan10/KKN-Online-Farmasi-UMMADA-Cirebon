@@ -1,5 +1,5 @@
 // Function exec ajax
-var vBase_url = "https://kkn.ummada.ac.id/";
+var vBase_url = typeof vBase_url !== 'undefined' ? vBase_url : "https://kkn.ummada.ac.id/";
 var vTimeout = 10000;
 
 function appAjax(vurl, vdata, vasync = true) {

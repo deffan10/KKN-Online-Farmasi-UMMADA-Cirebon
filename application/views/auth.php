@@ -38,7 +38,6 @@
 
     <!-- jQuery -->
     <script src="<?= base_url('assets/plugins/') ?>jquery/jquery.min.js"></script>
-    <script src="<?= base_url('assets/bootstrap.bundle.min.js') ?>"></script>
 
     <?php include(APPPATH . "views/importfooter.php"); ?>
 

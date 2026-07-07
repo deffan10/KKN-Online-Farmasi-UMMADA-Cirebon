@@ -114,7 +114,6 @@
 
     <!-- jQuery -->
     <script src="<?= base_url('assets/plugins/') ?>jquery/jquery.min.js"></script>
-    <script src="<?= base_url('assets/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('templates/mazer/') ?>assets/js/app.js"></script>
 
     <script>
@@ -149,7 +148,7 @@
         });
     </script>
 
-    <?php include(APPPATH . "views/importfooter.php"); ?>
+    <?php $no_bootstrap = true; include(APPPATH . "views/importfooter.php"); ?>
 </body>
 
 </html>

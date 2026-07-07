@@ -249,8 +249,8 @@ $("#formlokasi").submit(function (e) {
         iddesa: $('#iddesa').val(),
         idkkn: $("#idjadwalkkn").val(),
         keterangan: $("#keterangan").val(),
-        pergi: $('#pulang').cleanVal(),
-        pulang: $('#pergi').cleanVal(),
+        pergi: $('#pergi').cleanVal(),
+        pulang: $('#pulang').cleanVal(),
     };
     if ($(this).validationEngine('validate')) {
         appAjax("app/lokasi/simpan", formVal).done(function (vRet) {
