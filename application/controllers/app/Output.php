@@ -139,6 +139,7 @@ class Output extends CI_Controller
 
     function alphacostum($string)
     {
+        $string = (string) $string;
         if (preg_match('/[^a-z_\-0-9]/i', $string)) {
             $this->form_validation->set_message('alphacostum', 'The %s field may only contain alpha characters & White spaces');
             return false;
