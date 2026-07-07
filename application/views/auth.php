@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url('templates/mazer/') ?>assets/css/pages/auth.css">
     <link rel="shortcut icon" href="<?= base_url('templates/mazer/') ?>assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="<?= base_url('templates/mazer/') ?>assets/images/logo/favicon.png" type="image/png">
-    <link href="<?= base_url('assets/bootstrap.min.css') ?>" rel="stylesheet">
+
 
     <?php include(APPPATH . "views/importhead.php"); ?>
 

@@ -15,8 +15,13 @@ function appAjax(vurl, vdata, vasync = true) {
       vretval = vRet;
     },
     error: function (request, status, error) {
-      //console.log(error);
-      alert("Terjadi kesalahan, periksa koneksi internet anda dan coba lagi");
+      console.error("AJAX Error:", status, error);
+      console.log("Response text:", request.responseText);
+      if (request.responseText) {
+        alert("Terjadi kesalahan: " + request.responseText);
+      } else {
+        alert("Terjadi kesalahan, periksa koneksi internet anda dan coba lagi");
+      }
     },
   });
   //return vretval;
