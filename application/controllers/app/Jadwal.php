@@ -56,22 +56,22 @@ class Jadwal extends CI_Controller
 
         $this->datatables->select("
 			'' as cek, '' as no, '' as aksi, 
-            j.id, j.tema, j.jenis, , j.tempat, j.tahun, j.semester,
+            j.id, j.tema, j.jenis, j.tempat, j.tahun, j.semester,
             j.daftarmulai, j.daftarselesai, 
             j.kknmulai, j.kknselesai, 
             j.tamulai, j.taselesai, j.nilaimulai, j.nilaiselesai, j.bagikelompok,
 		");
 
         //debug($filterTables);
-        $tahun = ($filterTables['flt_tahun'][0] !== "") ? $filterTables['flt_tahun'][0] : null;
+        $tahun = (isset($filterTables['flt_tahun'][0]) && $filterTables['flt_tahun'][0] !== "") ? $filterTables['flt_tahun'][0] : null;
         if ($tahun)
             $this->datatables->where("j.tahun", $filterTables["flt_tahun"][0]);
 
-        $semester = ($filterTables['flt_semester'][0] !== "") ? $filterTables['flt_semester'][0] : null;
+        $semester = (isset($filterTables['flt_semester'][0]) && $filterTables['flt_semester'][0] !== "") ? $filterTables['flt_semester'][0] : null;
         if ($semester)
             $this->datatables->where("j.semester", $filterTables["flt_semester"][0]);
 
-        $jenis = ($filterTables['flt_jenis'][0] !== "") ? $filterTables['flt_jenis'][0] : null;
+        $jenis = (isset($filterTables['flt_jenis'][0]) && $filterTables['flt_jenis'][0] !== "") ? $filterTables['flt_jenis'][0] : null;
         if ($jenis)
             $this->datatables->where("j.jenis", $filterTables["flt_jenis"][0]);
 
