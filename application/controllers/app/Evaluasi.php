@@ -20,6 +20,42 @@ class Evaluasi extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
+        // Ensure app/evaluasi module is registered in database
+        $cek_mod = $this->db->get_where('module', array('module' => 'app/evaluasi'))->row();
+        if (!$cek_mod) {
+            $this->db->insert('module', array(
+                'module' => 'app/evaluasi',
+                'keterangan' => 'Kuesioner/Evaluasi KKN'
+            ));
+            $new_idmodule = $this->db->insert_id();
+            
+            $this->db->insert('aksesgrup', array(
+                'idgrup' => 1,
+                'idmodule' => $new_idmodule,
+                'module' => 'app/evaluasi',
+                'c' => 'y',
+                'r' => 'y',
+                'u' => 'y',
+                'd' => 'y',
+                'f' => 'y'
+            ));
+        } else {
+            $cek_akses = $this->db->get_where('aksesgrup', array('idgrup' => 1, 'idmodule' => $cek_mod->id))->row();
+            if (!$cek_akses) {
+                $this->db->insert('aksesgrup', array(
+                    'idgrup' => 1,
+                    'idmodule' => $cek_mod->id,
+                    'module' => 'app/evaluasi',
+                    'c' => 'y',
+                    'r' => 'y',
+                    'u' => 'y',
+                    'd' => 'y',
+                    'f' => 'y'
+                ));
+            }
+        }
+
         $this->otentikasi = otentikasi($this->d);
     }
 
