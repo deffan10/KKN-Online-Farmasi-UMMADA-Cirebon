@@ -28,6 +28,7 @@ class Dashboard extends CI_Controller
     {
         $this->d['web']['loadview'] = "app/dashboard";
         $this->d['web']['importPlugins'] = array(
+            loadPlugins("datatables"),
             loadPlugins("datetime"),
             loadPlugins("sweetalert"),
             loadPlugins("loading"),

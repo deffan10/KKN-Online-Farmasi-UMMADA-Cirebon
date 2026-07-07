@@ -58,8 +58,49 @@
             <h4 class="card-title">Tabel Jadwal KKN</h4>
         </div>
         <div class="card-body">
-
+            <div class="table-responsive">
+                <table class="table table-striped table-sm table-jadwal">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: middle;" scope="col">No</th>
+                            <th style="vertical-align: middle;" scope="col">Tahun</th>
+                            <th style="vertical-align: middle;" scope="col">Tema</th>
+                            <th style="vertical-align: middle;" scope="col">Jenis</th>
+                            <th style="vertical-align: middle;" scope="col">Tempat</th>
+                            <th style="vertical-align: middle;" scope="col">Pendaftaran</th>
+                            <th style="vertical-align: middle;" scope="col">Pelaksanaan</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('.table-jadwal').DataTable({
+            "autoWidth": false,
+            "processing": false,
+            "serverSide": true,
+            "ajax": {
+                "url": "<?= base_url('app/jadwal/read') ?>",
+                "dataType": "json",
+                "type": "POST",
+                "dataSrc": function(json) {
+                    return json.data;
+                }
+            },
+            "columns": [
+                { "data": "no", "width": "5%" },
+                { "data": "tahun", "width": "10%" },
+                { "data": "tema", "width": "30%" },
+                { "data": "jenis", "width": "10%" },
+                { "data": "tempat", "width": "15%" },
+                { "data": "pendaftaran", "orderable": false, "searchable": false, "width": "15%" },
+                { "data": "pelaksanaan", "orderable": false, "searchable": false, "width": "15%" }
+            ]
+        });
+    });
+</script>
