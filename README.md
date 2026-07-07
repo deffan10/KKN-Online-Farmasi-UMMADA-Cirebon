@@ -1,6 +1,6 @@
 # SIM-KKN Online Farmasi UMMADA Cirebon
 
-Sistem Informasi Manajemen Kuliah Kerja Nyata (SIM-KKN) Online merupakan platform berbasis web untuk mengelola administrasi, pendaftaran, pembimbingan, penempatan lokasi, logbook harian (LKH), dan penilaian kegiatan KKN di Universitas Muhammadiyah Mahakarya Asia (UMMADA) Cirebon.
+Sistem Informasi Manajemen Kuliah Kerja Nyata (SIM-KKN) Online merupakan platform berbasis web untuk mengelola administrasi, pendaftaran, pembimbingan, penempatan lokasi, logbook harian (LKH), dan penilaian kegiatan KKN di Universitas Muhammadiyah Ahmad Dahlan (UMMADA) Cirebon.
 
 ---
 
