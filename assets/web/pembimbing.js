@@ -412,3 +412,23 @@ function loadpembimbing() {
     });
 };
 
+// reset password massal
+$(".resetPasswordMassal").click(function () {
+    let password = prompt("Masukkan password baru untuk semua Dosen Pembimbing:");
+    if (password === null) return; // cancelled
+    if (password.trim() === "") {
+        alert("Password tidak boleh kosong.");
+        return;
+    }
+    if (password.length < 8) {
+        alert("Password minimal terdiri dari 8 karakter.");
+        return;
+    }
+    
+    if (confirm("Apakah Anda yakin ingin me-reset password untuk SELURUH akun Dosen Pembimbing?")) {
+        appAjax("app/pembimbing/reset_password_massal", { "password": password }).done(function (vRet) {
+            showNotification(vRet.status, vRet.pesan);
+        });
+    }
+});
+

@@ -34,6 +34,57 @@ class Dashboard extends CI_Controller
             loadPlugins("myapp"),
         );
 
+        // Fetch active KKN schedules
+        $sekarang = date("Y-m-d");
+        $q = $this->db->query("
+            SELECT * FROM kkn 
+            WHERE aktif = 'Y' 
+              AND (daftarselesai >= ? OR kknselesai >= ? OR daftarselesai IS NULL OR kknselesai IS NULL)
+            ORDER BY kknmulai ASC
+        ", array($sekarang, $sekarang));
+        
+        $jadwal_aktif = array();
+        foreach ($q->result_array() as $row) {
+            $status_label = "Akan Aktif";
+            $badge_color = "warning";
+            
+            if ($row['daftarmulai'] && $row['daftarselesai'] && $sekarang >= $row['daftarmulai'] && $sekarang <= $row['daftarselesai']) {
+                $status_label = "Pendaftaran Terbuka";
+                $badge_color = "success";
+            } elseif ($row['kknmulai'] && $row['kknselesai'] && $sekarang >= $row['kknmulai'] && $sekarang <= $row['kknselesai']) {
+                $status_label = "Sedang Berjalan";
+                $badge_color = "primary";
+            } elseif ($row['daftarmulai'] && $sekarang < $row['daftarmulai']) {
+                $status_label = "Pendaftaran Belum Buka";
+                $badge_color = "secondary";
+            } elseif ($row['kknmulai'] && $sekarang < $row['kknmulai']) {
+                $status_label = "Akan Aktif";
+                $badge_color = "info";
+            }
+
+            // Get counts
+            $pendaftar_count = $this->db->query("SELECT COUNT(id) as total FROM pendaftar WHERE idkkn = ?", array($row['id']))->row()->total;
+            $lokasi_count = $this->db->query("SELECT COUNT(id) as total FROM lokasi WHERE idkkn = ?", array($row['id']))->row()->total;
+            $aktifitas_count = $this->db->query("
+                SELECT COUNT(a.id) as total
+                FROM aktifitas a
+                JOIN penempatan p ON a.idpenempatan = p.id
+                JOIN kelompok k ON p.idkelompok = k.id
+                JOIN lokasi l ON k.idlokasi = l.id
+                WHERE l.idkkn = ?
+            ", array($row['id']))->row()->total;
+
+            $row['status_label'] = $status_label;
+            $row['badge_color'] = $badge_color;
+            $row['pendaftar_count'] = $pendaftar_count;
+            $row['lokasi_count'] = $lokasi_count;
+            $row['aktifitas_count'] = $aktifitas_count;
+
+            $jadwal_aktif[] = $row;
+        }
+
+        $this->d['jadwal_aktif'] = $jadwal_aktif;
+
         $this->load->view('app/index', $this->d);
     }
 

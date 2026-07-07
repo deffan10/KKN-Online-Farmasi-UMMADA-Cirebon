@@ -326,4 +326,33 @@ class Pembimbing extends CI_Controller
         }
         die(json_encode($retVal));
     }
+
+    public function reset_password_massal()
+    {
+        $retVal = array("status" => false, "pesan" => [], "login" => true);
+        allowheader();
+
+        if (akses_akun("update", $this->otentikasi, "pembimbing")->status) {
+            $password = $this->input->post('password');
+            if (strlen($password) < 8) {
+                $retVal['pesan'] = ["Password minimal terdiri dari 8 karakter."];
+            } else {
+                $new_pass_hash = password_hash($password, PASSWORD_DEFAULT);
+                $this->db->query("
+                    UPDATE user u
+                    JOIN hakakses h ON u.id = h.iduser
+                    SET u.fldpass = ?
+                    WHERE h.idgrup = 5 AND h.aktivasi = 1
+                ", array($new_pass_hash));
+                
+                $count = $this->db->affected_rows();
+                $retVal['status'] = true;
+                $retVal['pesan'] = ["Password berhasil di-reset untuk " . $count . " akun Dosen Pembimbing."];
+            }
+        } else {
+            $retVal['pesan'] = ["Maaf, Anda tidak memiliki akses untuk mengubah data ini."];
+        }
+
+        die(json_encode($retVal));
+    }
 }

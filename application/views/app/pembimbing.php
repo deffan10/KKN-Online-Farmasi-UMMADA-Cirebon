@@ -117,6 +117,7 @@
                     <tbody></tbody>
                 </table>
                 <button class="btn btn-danger hapusTerpilih"><i class="bi bi-trash"></i> Hapus Terpilih</button>
+                <button class="btn btn-warning resetPasswordMassal"><i class="bi bi-key"></i> Reset Password Massal</button>
             </div>
         </div>
     </div>
