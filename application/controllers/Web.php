@@ -691,7 +691,7 @@ class Web extends CI_Controller
         $this->db->select('*');
         $this->db->from('aktifitas_upload');
         $this->db->where('is_image', 1);
-        $this->db->order_by('idupload', 'DESC');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit(21);
         $gallery_images = $this->db->get()->result_array();
 
