@@ -52,10 +52,8 @@ class Web extends CI_Controller
         //end cari komentar terakhir
 
         //cari kkn
-        $thn = array(date("Y"), (date("Y") - 1));
-        //print_r($thn);
         $cari = array(
-            array("cond" => "where_in", "fld" => "YEAR(k.kknmulai)", "val" => $thn),
+            array("cond" => "where", "fld" => "k.aktif", "val" => "Y"),
         );
         $this->d['kkn'] = $this->dataweb->cariKkn($cari);
         //end cari kkn

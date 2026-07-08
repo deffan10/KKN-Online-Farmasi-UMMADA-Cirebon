@@ -530,7 +530,10 @@ class Dashboard extends CI_Controller
             $is_public = ($this->input->post('mode') == 'public');
             foreach ($dataaktifitas as $i => $dp) {
                 if ($is_public) {
-                    $uraian_plain = trim(html_entity_decode(strip_tags($dp['uraian']), ENT_QUOTES, 'UTF-8'));
+                    $uraian_temp = str_replace(array('<br>', '<br/>', '<br />'), ' ', $dp['uraian']);
+                    $uraian_temp = preg_replace('/<\/(p|div|h[1-6]|li)>/i', ' </$1>', $uraian_temp);
+                    $uraian_plain = trim(html_entity_decode(strip_tags($uraian_temp), ENT_QUOTES, 'UTF-8'));
+                    $uraian_plain = preg_replace('/\s+/', ' ', $uraian_plain);
                     $excerpt = (mb_strlen($uraian_plain) > 100) ? mb_substr($uraian_plain, 0, 100) . '...' : $uraian_plain;
                     $url_detail = base_url("dashboard/detail_aktifitas/" . $dp['idaktifitas']);
                     

@@ -19,37 +19,83 @@
     <section class="row">
         <div class="col-12 col-lg-9">
             <!-- start daftar kkn -->
-            <div class="row">
-                <?php
-                $color = array("purple", "blue", "green", "red", "yellow");
-                if (count($kkn['db']) > 0)
-                    foreach ($kkn['db'] as $i => $dp) {
+            <?php
+            $color = array("purple", "blue", "green", "red", "yellow");
+            
+            $kkn_aktif = [];
+            $kkn_riwayat = [];
+            $today = date('Y-m-d');
+            
+            foreach ($kkn['db'] as $dp) {
+                if ($today <= $dp['kknselesai'] || $today <= $dp['daftarselesai']) {
+                    $kkn_aktif[] = $dp;
+                } else {
+                    $kkn_riwayat[] = $dp;
+                }
+            }
+            ?>
+            
+            <?php if (count($kkn_aktif) > 0) { ?>
+                <h5 class="mb-3"><i class="bi bi-bookmark-star-fill text-primary"></i> Kegiatan Aktif</h5>
+                <div class="row mb-4">
+                    <?php foreach ($kkn_aktif as $i => $dp) {
                         $url = base_url('dashboard/kkn/' . $dp['idkkn']);
                         $randcolor = rand(0, 4);
-                ?>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="<?= $url ?>">
-                                <div class="card-body px-3 py-4-5" title="<?= $dp['keterangan'] ?>">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="stats-icon <?= $color[$randcolor] ?>">
-                                                <i class="iconly-boldBookmark"></i>
+                    ?>
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card shadow-sm border-0 mb-3" style="border-radius: 8px;">
+                                <a href="<?= $url ?>">
+                                    <div class="card-body px-3 py-4-5" title="<?= $dp['keterangan'] ?>">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon <?= $color[$randcolor] ?>">
+                                                    <i class="iconly-boldBookmark"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold mb-0" style="font-size: 0.9rem;"><?= $dp['tema'] ?></h6>
+                                                <div class="mb-0 text-muted" style="font-size:11px">Tahun <?= $dp['tahun'] ?></div>
+                                                <h6 class="font-extrabold mb-0" style="font-size: 0.85rem;"><i class="bi bi-person-check"></i> <?= $dp['jumlahvalidasi'] ?></h6>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold mb-0"><?= $dp['tema'] ?></h6>
-                                            <div class="mb-0" style="font-size:12px">Tahun <?= $dp['tahun'] ?></div>
-                                            <h6 class="font-extrabold mb-0"><i class="bi bi-person-check"></i> <?= $dp['jumlahvalidasi'] ?></h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            
+            <?php if (count($kkn_riwayat) > 0) { ?>
+                <h5 class="mb-3 text-muted"><i class="bi bi-clock-history"></i> Riwayat Kegiatan</h5>
+                <div class="row mb-4">
+                    <?php foreach ($kkn_riwayat as $i => $dp) {
+                        $url = base_url('dashboard/kkn/' . $dp['idkkn']);
+                        $randcolor = rand(0, 4);
+                    ?>
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card shadow-sm border-0 mb-3" style="border-radius: 8px; opacity: 0.8;">
+                                <a href="<?= $url ?>">
+                                    <div class="card-body px-3 py-4-5" title="<?= $dp['keterangan'] ?>">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon grey">
+                                                    <i class="iconly-boldBookmark"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold mb-0" style="font-size: 0.9rem;"><?= $dp['tema'] ?></h6>
+                                                <div class="mb-0 text-muted" style="font-size:11px">Tahun <?= $dp['tahun'] ?></div>
+                                                <h6 class="font-extrabold mb-0" style="font-size: 0.85rem;"><i class="bi bi-person-check"></i> <?= $dp['jumlahvalidasi'] ?></h6>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                <?php } ?>
-
-            </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
             <!-- end daftar kkn -->
 
 

@@ -206,6 +206,16 @@ a:hover {
   color: rgba(255, 255, 255, 0.9) !important;
   padding: 0.7rem 1.2rem !important;
   transition: all 0.2s ease-in-out !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+.main-navbar .menu-item.has-sub .menu-link::after {
+  margin-left: 0.5rem !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+  margin-top: 2px !important;
 }
 
 .main-navbar .menu-item .menu-link i,
