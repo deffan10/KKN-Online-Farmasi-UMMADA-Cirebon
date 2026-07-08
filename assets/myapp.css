@@ -144,3 +144,57 @@ a:hover {
   outline: none;
   font-size:12px
 }
+
+/* Sidebar font size and spacing adjustments */
+.sidebar-wrapper .menu .sidebar-item .sidebar-link {
+  font-size: 0.88rem !important;
+  padding-right: 2.2rem !important; /* Prevent text from touching the dropdown arrow */
+}
+
+.sidebar-wrapper .menu .sidebar-item .sidebar-link span {
+  font-size: 0.88rem !important;
+}
+
+.sidebar-wrapper .menu .submenu .submenu-item a {
+  font-size: 0.84rem !important;
+}
+
+/* Horizontal Layout (Home / Beranda) Navbar overrides */
+.main-navbar {
+  background-color: #03a49b !important;
+}
+
+.main-navbar .menu-item.active > .menu-link {
+  background-color: #028079 !important;
+  color: #fff !important;
+}
+
+.main-navbar .menu-item .menu-link:hover {
+  background-color: #028079 !important;
+  color: #fff !important;
+}
+
+.main-navbar .menu-item .menu-link {
+  color: #fff !important;
+}
+
+.main-navbar .menu-item .menu-link i {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.main-navbar .menu-item .menu-link span {
+  color: #fff !important;
+}
+
+.main-navbar .submenu {
+  background-color: #fff !important;
+}
+
+.main-navbar .submenu .submenu-group .submenu-item a {
+  color: #555 !important;
+}
+
+.main-navbar .submenu .submenu-group .submenu-item a:hover {
+  color: #03a49b !important;
+  background-color: #f1f8f7 !important;
+}

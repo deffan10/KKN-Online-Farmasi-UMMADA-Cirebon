@@ -144,6 +144,7 @@ function reloadTable() {
 $(".addPage").click(function () {
     let idjadwal = $("#idjadwalkkn").val();
     if (idjadwal != "") {
+        resetform();
         var myModal = new bootstrap.Modal(document.getElementById('modal-form-lokasi'), {
             backdrop: 'static',
             keyboard: false,
@@ -271,10 +272,13 @@ $(".refreshData").click(function () {
 
 //reset nilai form
 function resetform() {
+    $("#idlokasi").val("");
     $("#formlokasi")[0].reset();
-    $("#iddesa").val("").trigger("change");
+    $("#idprovinsi").empty().trigger("change");
+    $("#idkabupaten").empty().trigger("change");
+    $("#idkecamatan").empty().trigger("change");
+    $("#iddesa").empty().trigger("change");
     $("#keterangan").val("");
-    //$("#keterangan").summernote("code", "");
 }
 
 
