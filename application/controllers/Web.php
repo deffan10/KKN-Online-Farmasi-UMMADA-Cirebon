@@ -678,4 +678,25 @@ class Web extends CI_Controller
         $retVal['data'] = $data;
         die(json_encode($retVal));
     }
+
+    public function galeri()
+    {
+        $this->d['web']['title'] = "Galeri Kegiatan " . $this->config->item("app_singkatan");
+        $this->d['web']['loadview'] = "galeri";
+        $this->d['web']['importPlugins'] = array(
+            loadPlugins("myapp"),
+        );
+
+        // Fetch up to 21 latest activity log images (7 rows of 3 columns)
+        $this->db->select('*');
+        $this->db->from('aktifitas_upload');
+        $this->db->where('is_image', 1);
+        $this->db->order_by('idupload', 'DESC');
+        $this->db->limit(21);
+        $gallery_images = $this->db->get()->result_array();
+
+        $this->d['images'] = $gallery_images;
+
+        $this->load->view('index', $this->d);
+    }
 }

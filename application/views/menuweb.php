@@ -98,23 +98,11 @@
             </li>
 
 
-            <li class="menu-item  has-sub">
-                <a href="#" class='menu-link'>
-                    <i class="bi bi-life-preserver"></i>
-                    <span>Bantuan</span>
+            <li class="menu-item <?php echo ($this->uri->segment(2) == "galeri") ? 'active' : ''; ?>">
+                <a href="<?= base_url('web/galeri') ?>" class='menu-link'>
+                    <i class="bi bi-images"></i>
+                    <span>Galeri Kegiatan</span>
                 </a>
-                <div class="submenu ">
-                    <!-- Wrap to submenu-group-wrapper if you want 3-level submenu. Otherwise remove it. -->
-                    <div class="submenu-group-wrapper">
-                        <ul class="submenu-group">
-                            <li class="submenu-item  ">
-                                <a href="<?= $this->config->item('link_dokumentasi') ?>" class='submenu-link'>Dokumentasi</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="<?= $this->config->item('link_youtube') ?>" class='submenu-link'>Video Youtube</a>
-                            </li>
-                    </div>
-                </div>
             </li>
         </ul>
     </div>
