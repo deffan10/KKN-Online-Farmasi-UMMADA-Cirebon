@@ -7,19 +7,20 @@
     <section class="row">
         <div class="col-12">
             <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px;">
-                <div class="card-body p-4 p-md-5">
+                <div class="card-body p-3 p-md-4">
                     <?php if (count($images) > 0) { ?>
-                        <div class="row g-2 justify-content-center">
-                            <div class="col-12 col-md-10 col-lg-8">
-                                <div class="row g-2">
-                                    <?php foreach ($images as $img) { ?>
-                                        <div class="col-4 mb-2">
-                                            <div class="ratio ratio-1x1 overflow-hidden rounded shadow-sm hover-gallery-container" style="background: #f8f9fa;">
-                                                <img src="<?= base_url($img['path']) ?>" class="img-fluid object-fit-cover click-gallery-img" style="cursor: pointer; transition: transform 0.2s;" alt="Foto Kegiatan">
-                                            </div>
-                                        </div>
-                                    <?php } ?>
+                        <div class="instagram-grid">
+                            <?php foreach ($images as $img) { ?>
+                                <div class="ratio ratio-1x1 overflow-hidden rounded shadow-sm hover-gallery-container" style="background: #f8f9fa;">
+                                    <img src="<?= base_url($img['path']) ?>" class="img-fluid object-fit-cover click-gallery-img" style="cursor: pointer; transition: transform 0.2s;" alt="Foto Kegiatan">
                                 </div>
+                            <?php } ?>
+                        </div>
+                        
+                        <!-- loading spinner -->
+                        <div id="loading-gallery" class="text-center py-4" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
                     <?php } else { ?>
@@ -35,6 +36,23 @@
 </div>
 
 <style>
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+@media (min-width: 768px) {
+    .instagram-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+    }
+}
+@media (min-width: 992px) {
+    .instagram-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 16px;
+    }
+}
 .hover-gallery-container {
     border: 1px solid #eee;
 }
@@ -45,6 +63,46 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    var offset = 70;
+    var loading = false;
+    var hasMore = true;
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 400) {
+            if (!loading && hasMore) {
+                loadMoreImages();
+            }
+        }
+    });
+
+    function loadMoreImages() {
+        loading = true;
+        $('#loading-gallery').show();
+        $.ajax({
+            url: '<?= base_url("web/read_galeri") ?>',
+            type: 'post',
+            dataType: 'json',
+            data: { offset: offset },
+            success: function(res) {
+                $('#loading-gallery').hide();
+                loading = false;
+                if (res.status && res.html !== "") {
+                    $('.instagram-grid').append(res.html);
+                    offset += res.count;
+                    if (res.count < 70) {
+                        hasMore = false;
+                    }
+                } else {
+                    hasMore = false;
+                }
+            },
+            error: function() {
+                $('#loading-gallery').hide();
+                loading = false;
+            }
+        });
+    }
+
     $(document).on('click', '.click-gallery-img', function() {
         var src = $(this).prop('src');
         var modalHtml = `

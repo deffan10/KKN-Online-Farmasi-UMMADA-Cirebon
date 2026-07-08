@@ -687,16 +687,44 @@ class Web extends CI_Controller
             loadPlugins("myapp"),
         );
 
-        // Fetch up to 21 latest activity log images (7 rows of 3 columns)
+        // Fetch up to 70 latest activity log images (7 columns * 10 rows)
         $this->db->select('*');
         $this->db->from('aktifitas_upload');
         $this->db->where('is_image', 1);
         $this->db->order_by('id', 'DESC');
-        $this->db->limit(21);
+        $this->db->limit(70);
         $gallery_images = $this->db->get()->result_array();
 
         $this->d['images'] = $gallery_images;
 
         $this->load->view('index', $this->d);
+    }
+
+    public function read_galeri()
+    {
+        allowheader();
+        $offset = (int)$this->input->post('offset');
+        $limit = 70; // 7 columns * 10 rows
+
+        $this->db->select('*');
+        $this->db->from('aktifitas_upload');
+        $this->db->where('is_image', 1);
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
+        $images = $this->db->get()->result_array();
+
+        $html = "";
+        foreach ($images as $img) {
+            $html .= "
+            <div class='ratio ratio-1x1 overflow-hidden rounded shadow-sm hover-gallery-container' style='background: #f8f9fa;'>
+                <img src='" . base_url($img['path']) . "' class='img-fluid object-fit-cover click-gallery-img' style='cursor: pointer; transition: transform 0.2s;' alt='Foto Kegiatan'>
+            </div>";
+        }
+
+        die(json_encode(array(
+            "status" => count($images) > 0,
+            "html" => $html,
+            "count" => count($images)
+        )));
     }
 }
