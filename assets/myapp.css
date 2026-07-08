@@ -305,8 +305,10 @@ a:hover {
 
 /* Large top image styling */
 .gambardet-large {
-  max-height: 380px;
-  object-fit: cover;
+  max-height: none !important;
+  object-fit: contain !important;
+  width: 100% !important;
+  height: auto !important;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
