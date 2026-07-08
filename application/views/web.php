@@ -101,53 +101,69 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
+                    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+                        <div class="card-header bg-transparent border-0 pb-0">
                             <h4>Berita Terbaru</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body px-4 px-md-5 position-relative">
 
-                            <div class="row">
-                                <?php foreach ($daftarberita as $i => $dp) {
-                                    $detail = strip_tags($dp['detail']);
-                                    $berita = explode(" ", $detail);
-                                    $urlberita = base_url("web/detailberita/" . $dp['slug']);
-                                ?>
-
-                                    <div class="col-xl-6 col-md-6 col-sm-12">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><i class="bi bi-person-circle"></i> <?= $dp['nama'] ?> <span style="font-size:11px">publish : <?= $dp['waktu'] ?></span></li>
-                                                </ul>
-                                                <a href="<?= $urlberita ?>">
-                                                    <?php
-                                                    if ($dp['thumbnail']) {
-                                                        echo "<img src='" . base_url($dp['thumbnail']) . "' class='card-img-top img-fluid' >";
-                                                    }
-                                                    ?>
-                                                </a>
-                                                <span class="badge bg-secondary" style='font-size:11px;'><i class="bi bi-clock"></i> <?= waktu_lalu($dp['waktu']) ?></span>
-                                                <div class="card-body">
-
-                                                    <h5 class="card-title"><a href="<?= $urlberita ?>"><?= $dp['judul'] ?></a></h5>
-                                                    <p class="card-text">
-                                                        <?php
-                                                        if (count($berita) > 40) {
-                                                            for ($i = 0; $i <= 40; $i++)
-                                                                echo $berita[$i] . " ";
-                                                            echo "...";
-                                                            echo "<br><a href='" . $urlberita . "'>Selengkapnya!</a>";
-                                                        } else {
-                                                            echo $dp['detail'];
-                                                        }
-                                                        ?>
-                                                    </p>
+                            <div id="beritaCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                                <div class="carousel-inner">
+                                    <?php foreach ($daftarberita as $i => $dp) {
+                                        $detail = strip_tags($dp['detail']);
+                                        $berita = explode(" ", $detail);
+                                        $urlberita = base_url("web/detailberita/" . $dp['slug']);
+                                        $activeClass = ($i === 0) ? 'active' : '';
+                                    ?>
+                                        <div class="carousel-item <?= $activeClass ?>">
+                                            <div class="card mb-0 overflow-hidden border-0" style="background: #fff;">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5 position-relative" style="min-height: 250px; background: #f8f9fa; border-radius: 8px; overflow: hidden;">
+                                                        <?php if ($dp['thumbnail']) { ?>
+                                                            <img src="<?= base_url($dp['thumbnail']) ?>" class="w-100 h-100" style="object-fit: cover; position: absolute; top:0; left:0;" alt="Thumbnail">
+                                                        <?php } else { ?>
+                                                            <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted" style="position: absolute; top:0; left:0;">
+                                                                <i class="bi bi-image" style="font-size: 3rem;"></i>
+                                                            </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="col-md-7 d-flex flex-column justify-content-between p-3 p-md-4">
+                                                        <div>
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <span class="text-muted" style="font-size: 11px;"><i class="bi bi-person-circle"></i> <?= $dp['nama'] ?></span>
+                                                                <span class="badge bg-secondary" style="font-size: 11px;"><i class="bi bi-clock"></i> <?= waktu_lalu($dp['waktu']) ?></span>
+                                                            </div>
+                                                            <h4 class="card-title mb-2"><a href="<?= $urlberita ?>" style="color: #03a49b; text-decoration: none; font-weight: 700;"><?= $dp['judul'] ?></a></h4>
+                                                            <p class="card-text text-muted" style="font-size: 13px; line-height: 1.6;">
+                                                                <?php
+                                                                if (count($berita) > 30) {
+                                                                    for ($k = 0; $k <= 30; $k++) {
+                                                                        echo $berita[$k] . " ";
+                                                                    }
+                                                                    echo "...";
+                                                                } else {
+                                                                    echo $detail;
+                                                                }
+                                                                ?>
+                                                            </p>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <a href="<?= $urlberita ?>" class="btn btn-sm btn-outline-primary" style="border-radius: 20px; font-weight: 500; padding: 4px 16px;">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php } ?>
+                                    <?php } ?>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#beritaCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#beritaCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
 
                         </div>

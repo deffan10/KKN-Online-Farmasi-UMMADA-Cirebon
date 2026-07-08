@@ -315,18 +315,24 @@ if (!function_exists('decodeNIK')) {
 	function decodeNIK($vdata = null)
 	{
 		$retval = [];
+		// Clean NIK string from non-digits
+		$vdata = preg_replace('/[^0-9]/', '', $vdata);
+
+		if (strlen($vdata) < 16) {
+			$retval["prov"] = "";
+			$retval["kab"] = "";
+			$retval["kec"] = "";
+			$retval["tgllahir"] = date("Y-m-d");
+			$retval["kel"] = "L";
+			return $retval;
+		}
+
 		//inisiasi tahun sekarang
 		$thnskrng = date("Y");
-		//menyiapkan temporari tahun
-		$tmpthn = (int)substr($thnskrng, 0, 2);
 
 		$retval["prov"] = substr($vdata, 0, 2);
 		$retval["kab"] = substr($vdata, 2, 2);
 		$retval["kec"] = substr($vdata, 4, 2);
-
-		#$tgl = (int)substr($vdata, 6, 2);
-		#$bln = (int)substr($vdata, 8, 2);
-		#$thn = (int)substr($vdata, 10, 2);
 		
 		$tgl_str = substr($vdata, 6, 2);
 		$bln_str = substr($vdata, 8, 2);
@@ -336,13 +342,9 @@ if (!function_exists('decodeNIK')) {
 		
 		$abad_skrng = substr($thnskrng, 0, 2);
 		$thnlahir = $abad_skrng . $thn_str;
-
-		#$thnlahir = ($tmpthn . $thn);
-		#if ((int)$thnlahir > (int)$thnskrng) {
-		#	$thnlahir = ($tmpthn - 1) . $thn;
-		#}
 		
-		if ($thnlahir > $thnskrng) {
+		// If year is larger than current year - 15 (e.g. 2011), assume they were born in the 1900s
+		if ($thnlahir > ($thnskrng - 15)) {
 			$thnlahir = ($abad_skrng - 1) . $thn_str;
 		}
 
@@ -352,11 +354,6 @@ if (!function_exists('decodeNIK')) {
 			$retval["kel"] = "P";
 		}
 		$retval["tgllahir"] = date("Y-m-d");
-		#if (checkdate($bln, $tgl, $thnlahir))
-		#	$retval["tgllahir"] = $thnlahir . "-" . $bln . "-" . $tgl;
-		//echo $retval["tgllahir"];
-		//die;
-		#return $retval;
 		if (checkdate((int)$bln_str, $tgl, (int)$thnlahir))
 			$retval["tgllahir"] = sprintf('%s-%02d-%02d', $thnlahir, (int)$bln_str, $tgl);
 		return $retval;

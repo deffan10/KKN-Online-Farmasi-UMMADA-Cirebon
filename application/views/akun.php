@@ -21,7 +21,7 @@
         <div class="card-body">
             <form id="formakun">
                 <input type="hidden" id="iduser" name="iduser">
-                <div class="modal-body">
+                <div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -90,16 +90,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>upload gambar pas foto maksimum 750kb</label>
-                                <button type="button" class="btn btn-outline-success btn-sm btn-upload" data-iduser=""><i class="bi bi-upload"></i></button>
-                                <hr>
-                                <div style="text-align: center;">
-                                    <img src="<?= base_url('assets/img/user-avatar.png') ?>" id="pasfoto" width="50%">
-                                </div>
+                        <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-center border-start ps-4">
+                            <div class="mb-3">
+                                <label class="d-block mb-3 text-muted" style="font-weight: 600;">Pas Foto Profil</label>
+                                <img src="<?= base_url('assets/img/user-avatar.png') ?>" id="pasfoto" class="rounded-circle img-thumbnail shadow-sm mb-3" style="width: 130px; height: 130px; object-fit: cover; border: 3px solid #03a49b;">
                             </div>
-
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary btn-upload" data-iduser="" style="border-radius: 20px; font-weight: 500; padding: 6px 16px;">
+                                    <i class="bi bi-camera-fill me-1"></i> Unggah Foto
+                                </button>
+                                <div class="text-muted mt-2" style="font-size: 11px;">Maksimum 750KB (JPG/PNG).</div>
+                            </div>
                         </div>
 
                     </div>
@@ -154,11 +155,8 @@
                     </div>
 
 
-                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                        Tutup
-                    </button>
-                    <button type="submit" class="btn btn-primary ml-1">
-                        Simpan
+                    <button type="submit" class="btn btn-primary ml-1 shadow-sm px-4" style="border-radius: 20px; font-weight: 500;">
+                        <i class="bi bi-check-circle me-1"></i> Simpan Perubahan
                     </button>
                 </div>
             </form>
