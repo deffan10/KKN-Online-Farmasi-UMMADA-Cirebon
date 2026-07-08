@@ -149,14 +149,52 @@ a:hover {
 .sidebar-wrapper .menu .sidebar-item .sidebar-link {
   font-size: 0.88rem !important;
   padding-right: 2.2rem !important; /* Prevent text from touching the dropdown arrow */
+  transition: all 0.2s ease-in-out !important;
 }
 
 .sidebar-wrapper .menu .sidebar-item .sidebar-link span {
   font-size: 0.88rem !important;
 }
 
+/* Sidebar Hover State */
+.sidebar-wrapper .menu .sidebar-item .sidebar-link:hover {
+  background-color: #f0f9f8 !important;
+  color: #03a49b !important;
+  border-radius: 4px !important;
+}
+
+.sidebar-wrapper .menu .sidebar-item .sidebar-link:hover i,
+.sidebar-wrapper .menu .sidebar-item .sidebar-link:hover span {
+  color: #03a49b !important;
+}
+
+/* Sidebar Active State */
+.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link {
+  background-color: #03a49b !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link i,
+.sidebar-wrapper .menu .sidebar-item.active > .sidebar-link span {
+  color: #fff !important;
+}
+
+/* Submenu items */
 .sidebar-wrapper .menu .submenu .submenu-item a {
   font-size: 0.84rem !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.sidebar-wrapper .menu .submenu .submenu-item a:hover {
+  color: #03a49b !important;
+  padding-left: 1.5rem !important; /* smooth slide micro-interaction */
+  text-decoration: none !important;
+}
+
+.sidebar-wrapper .menu .submenu .submenu-item.active > a {
+  color: #03a49b !important;
+  font-weight: 600 !important;
 }
 
 /* Horizontal Layout (Home / Beranda) Navbar overrides */
@@ -164,37 +202,59 @@ a:hover {
   background-color: #03a49b !important;
 }
 
-.main-navbar .menu-item.active > .menu-link {
-  background-color: #028079 !important;
-  color: #fff !important;
+.main-navbar .menu-item .menu-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  padding: 0.7rem 1.2rem !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
+.main-navbar .menu-item .menu-link i,
+.main-navbar .menu-item .menu-link span {
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover state */
 .main-navbar .menu-item .menu-link:hover {
   background-color: #028079 !important;
   color: #fff !important;
+  border-radius: 4px !important;
 }
 
-.main-navbar .menu-item .menu-link {
+.main-navbar .menu-item .menu-link:hover i,
+.main-navbar .menu-item .menu-link:hover span {
   color: #fff !important;
 }
 
-.main-navbar .menu-item .menu-link i {
-  color: rgba(255, 255, 255, 0.8) !important;
+/* Active state */
+.main-navbar .menu-item.active > .menu-link {
+  background-color: #028079 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
 }
 
-.main-navbar .menu-item .menu-link span {
+.main-navbar .menu-item.active > .menu-link i,
+.main-navbar .menu-item.active > .menu-link span {
   color: #fff !important;
 }
 
+/* Dropdown Submenu */
 .main-navbar .submenu {
   background-color: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 4px !important;
 }
 
 .main-navbar .submenu .submenu-group .submenu-item a {
   color: #555 !important;
+  padding: 0.5rem 1rem !important;
+  display: block !important;
+  transition: all 0.2s ease !important;
 }
 
 .main-navbar .submenu .submenu-group .submenu-item a:hover {
   color: #03a49b !important;
   background-color: #f1f8f7 !important;
+  text-decoration: none !important;
 }
