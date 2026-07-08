@@ -1,13 +1,13 @@
 <nav class="main-navbar">
     <div class="container">
         <ul>
-            <li class="menu-item  ">
+            <li class="menu-item <?php echo ($this->uri->segment(1) == "" || ($this->uri->segment(1) == "web" && ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index"))) ? 'active' : ''; ?>">
                 <a href="<?= base_url() ?>" class='menu-link'>
                     <i class="bi bi-house-heart-fill"></i>
                     <span>Halaman Depan</span>
                 </a>
             </li>
-            <li class="menu-item active has-sub">
+            <li class="menu-item <?php echo ($this->uri->segment(1) == "web" && $this->uri->segment(2) == "profil") ? 'active' : ''; ?> has-sub">
                 <a href="#" class='menu-link'>
                     <i class="bi bi-grid-1x2-fill"></i>
                     <span>Profil</span>
@@ -28,13 +28,13 @@
                     </div>
                 </div>
             </li>
-            <li class="menu-item  ">
+            <li class="menu-item <?php echo ($this->uri->segment(1) == "rilis") ? 'active' : ''; ?>">
                 <a href="<?= base_url('rilis') ?>" class='menu-link'>
                     <i class="bi bi-stack"></i>
                     <span>Rilis <?= $this->config->item('app_singkatan') ?></span>
                 </a>
             </li>
-            <li class="menu-item  has-sub">
+            <li class="menu-item <?php echo ($this->uri->segment(1) == "berita" || ($this->uri->segment(1) == "web" && $this->uri->segment(2) == "dokumen")) ? 'active' : ''; ?> has-sub">
                 <a href="#" class='menu-link'>
                     <i class="bi bi-newspaper"></i>
                     <span>Publikasi</span>
@@ -57,7 +57,7 @@
                 </div>
             </li>
 
-            <li class="menu-item  has-sub">
+            <li class="menu-item <?php echo (in_array($this->uri->segment(1), ['login', 'daftar', 'akun'])) ? 'active' : ''; ?> has-sub">
                 <a href="#" class='menu-link'>
                     <i class="bi bi-person-heart"></i>
                     <span>Akun</span>
