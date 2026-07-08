@@ -258,3 +258,19 @@ a:hover {
   background-color: #f1f8f7 !important;
   text-decoration: none !important;
 }
+
+/* Comment excerpt styling for 2 lines clamp */
+.comment-excerpt {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.4 !important;
+  max-height: 2.8em !important;
+  font-size: 0.88rem !important;
+}
+
+.comment-excerpt a {
+  text-decoration: none !important;
+}

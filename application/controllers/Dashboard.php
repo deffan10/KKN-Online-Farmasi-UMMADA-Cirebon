@@ -527,7 +527,32 @@ class Dashboard extends CI_Controller
             $loadlampiran = $this->loadlampiran($idaktifitas);
             //print_r($loadkomentar);
 
+            $is_public = ($this->input->post('mode') == 'public');
             foreach ($dataaktifitas as $i => $dp) {
+                if ($is_public) {
+                    $uraian_plain = trim(html_entity_decode(strip_tags($dp['uraian']), ENT_QUOTES, 'UTF-8'));
+                    $excerpt = (mb_strlen($uraian_plain) > 100) ? mb_substr($uraian_plain, 0, 100) . '...' : $uraian_plain;
+                    $url_detail = base_url("dashboard/detail_aktifitas/" . $dp['idaktifitas']);
+                    
+                    $html = "<div class='card mb-3 shadow-sm border-0 rowlkh' data-id='" . $dp['idaktifitas'] . "' style='border-radius: 8px;'>";
+                    $html .= "  <div class='card-body'>";
+                    $html .= "      <div class='d-flex align-items-center mb-3'>";
+                    $html .= "          <div class='avatar avatar-lg me-3'>";
+                    $html .= "              <img src='" . base_url($dp['profilpic']) . "' alt='Avatar' style='width: 48px; height: 48px; object-fit: cover; border-radius: 50%;'>";
+                    $html .= "          </div>";
+                    $html .= "          <div>";
+                    $html .= "              <h6 class='mb-0 font-bold'>" . $dp['nama'] . "</h6>";
+                    $html .= "              <small class='text-muted' style='font-size: 0.75rem;'><i class='bi bi-clock'></i> " . waktu_lalu($dp['waktu']) . " &bull; Kelompok " . $dp['namakelompok'] . " (" . $dp['desa'] . ")</small>";
+                    $html .= "          </div>";
+                    $html .= "      </div>";
+                    $html .= "      <p class='card-text text-muted mb-2' style='font-size: 0.88rem; line-height: 1.5;'>" . htmlspecialchars($excerpt) . "</p>";
+                    $html .= "      <a href='" . $url_detail . "' class='btn btn-sm btn-outline-primary rounded-pill' style='font-size: 0.75rem; padding: 0.25rem 0.75rem;'>Selengkapnya</a>";
+                    $html .= "  </div>";
+                    $html .= "</div>";
+                    
+                    $db[] = $html;
+                    continue;
+                }
                 $itsme = false;
                 $btn_hapusaktifitas = "";
                 $btn_uploadaktifitas = "";

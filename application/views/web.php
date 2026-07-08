@@ -181,7 +181,7 @@
                             echo "  <li>
                                         <div><b>" . $dp['nama'] . "</b></div>
                                         <div style='font-size:12px;'><i class='bi bi-clock'></i> " . waktu_lalu($dp['waktu']) . "</div>
-                                        <div><a href='" . base_url('dashboard/detail_aktifitas/' . $dp['idaktifitas']) . "'>&ldquo;" . $dp['komentar'] . "&rdquo;</a></div>
+                                        <div class='comment-excerpt'><a href='" . base_url('dashboard/detail_aktifitas/' . $dp['idaktifitas']) . "'>&ldquo;" . $dp['komentar'] . "&rdquo;</a></div>
                                     </li>";
                         }
                         echo "</ul>";

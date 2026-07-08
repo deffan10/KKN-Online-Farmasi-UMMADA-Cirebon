@@ -5,7 +5,7 @@ loadlkh();
 
 function loadlkh(){
     $("#daftarlkh").empty();
-    appAjax("dashboard/loadlkh", {}).done(function(vRet) {        
+    appAjax("dashboard/loadlkh", { mode: 'public' }).done(function(vRet) {        
         if(vRet.status){
             jQuery.each(vRet.db, function(index, item) {
                 $("#daftarlkh").append(item);
