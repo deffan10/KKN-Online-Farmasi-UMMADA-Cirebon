@@ -115,3 +115,14 @@ Pada modul Evaluasi (`/app/evaluasi`), ditambahkan mekanisme *self-healing* di c
 Kustomisasi tampilan dilakukan secara aman dengan teknik *override* di file [myapp.css](file:///c:/laragon/www/KKN-Online-Farmasi-UMMADA-Cirebon/assets/myapp.css) tanpa merusak script inti Bootstrap 5:
 - **Font**: Memuat font **Poppins** dari Google Fonts dan menerapkannya secara global.
 - **Warna Utama**: Mengubah warna utama bawaan Mazer (biru `#435ebe`) menjadi hijau toska/teal (**`#03a49b`** dengan hover warna **`#028079`**) pada komponen tombol, link, sidebar active, checkbox, progress bar, dan pagination.
+
+### 5. Fitur Baru & Peningkatan Pengalaman Pengguna (UX)
+
+Beberapa fitur canggih dan peningkatan performa sistem yang baru saja ditambahkan meliputi:
+- **Upload Paralel & Kompresi Gambar Logbook**: Mahasiswa dapat mengunggah beberapa dokumentasi sekaligus pada logbook. Gambar dikompres secara otomatis (kualitas `70%`, lebar/tinggi maks `1200px`) di backend menggunakan library image manipulation GD2 untuk menghemat ruang penyimpanan server.
+- **Tampilan Galeri Logbook Dinamis**: Lampiran gambar diurutkan secara estetik (gambar pertama tampil penuh di atas, dan gambar berikutnya tampil sebagai deretan thumbnail kecil di bawahnya) lengkap dengan tombol hapus lampiran langsung.
+- **Preview Modal Bootstrap**: Mengganti perilaku pembukaan tab baru (`window.open`) dengan jendela modal dialog Bootstrap terpadu untuk pratinjau gambar secara langsung di halaman dashboard dan feed logbook.
+- **News Carousel Sliding Otomatis**: Widget "Berita Terbaru" di halaman depan dikonversi menjadi Bootstrap Carousel dengan transisi slide otomatis setiap 3 detik dan tombol kontrol melayang (*floating teal circle arrow*).
+- **Galeri Kegiatan 7 Kolom & Infinite Scroll**: Mengganti menu "Bantuan" dengan halaman "Galeri Kegiatan" yang menampilkan feed foto logbook berbentuk 7 kolom horizontal di desktop (mirip layout Instagram Web) dan memuat foto tambahan secara otomatis ke bawah (*infinite scroll* via AJAX) saat pengguna men-scroll halaman.
+- **Validasi dan Decoding NIK Aman**: Pendaftaran akun secara otomatis mengekstrak tanggal lahir (`tgllahir`) dan jenis kelamin (`kel`) berdasarkan parsing NIK. Validasi regex ditambahkan untuk mensterilkan input NIK dari karakter berbahaya, dan ditambahkan batas toleransi threshold tahun lahir `- 15` tahun untuk mencegah kesalahan penafsiran abad (misalnya tahun `99` diterjemahkan sebagai `1999` bukan `2099`).
+- **Mekanisme Auto-Upload Otomatis**: Menyembunyikan tombol manual "Mulai upload" dan "Batal upload" di form file dropzone, sehingga upload otomatis berjalan instan setelah file dipilih.
