@@ -638,7 +638,7 @@ class Dashboard extends CI_Controller
                                             <form class='fkomentar'>
                                                 <input type='hidden' name='iduser' value='" . $dp['iduser'] . "'>
                                                 <input type='hidden' name='idaktifitas' value='" . $dp['idaktifitas'] . "'>
-                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='tabe` " . strtolower($this->session->userdata('nama')) . ", kasi komentar tawwa...'></textarea>
+                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
                                                 <div style='margin-top:5px;'>
                                                     <button type='submit' class='btn btn-primary btn-sm'>Kirim Komentar</button>
                                                 </div>
@@ -985,7 +985,7 @@ class Dashboard extends CI_Controller
                                             <form class='fkomentar'>
                                                 <input type='hidden' name='idaktifitas' value='" . $dp['idaktifitas'] . "'>
                                                 <input type='hidden' name='iduser' value='" . $dp['iduser'] . "'>
-                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='tabe` " . strtolower($this->session->userdata('nama')) . ", kasi komentar tawwa...'></textarea>
+                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
                                                 <div style='margin-top:5px;'>
                                                     <button type='submit' class='btn btn-primary btn-sm'>Kirim Komentar</button>
                                                 </div>

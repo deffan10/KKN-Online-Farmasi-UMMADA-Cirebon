@@ -231,7 +231,7 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     parallelUploads: 20,
     acceptedFiles: 'image/*',
     previewTemplate: previewTemplate,
-    autoQueue: false, // Make sure the files aren't queued until manually added
+    autoQueue: true, // Make sure the files are queued automatically
     previewsContainer: "#previews", // Define the container to display the previews
     clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
     init: function() {

@@ -27,80 +27,73 @@
                         <input type="hidden" id="idmahasiswa" name="idmahasiswa" value="">
                         <input type="hidden" id="idhakakses" name="idhakakses" value="">
                         <div class="form-body">
-                            <div class="row">
-                                <h5>Data Identitas</h5>
-                                <div class="col-sm-2">
+                            <div class="row mb-4">
+                                <h5 class="mb-3">Data Identitas</h5>
+                                <div class="col-md-2 text-center mb-3">
                                     <div class="avatar avatar-xl">
-                                        <img src="<?= base_url("assets/img/user-avatar.png") ?>" id="fotoprofil">
+                                        <img src="<?= base_url("assets/img/user-avatar.png") ?>" id="fotoprofil" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
                                     </div>
                                 </div>
-
-                                <div class="col-sm-7">
-                                    <div class="form-group">
-                                        <label for="nama" class="sr-only">Nama Lengkap</label>
-                                        <input type="text" id="nama" class="form-control" placeholder="Nama Lengkap" name="nama" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="nik" class="sr-only">NIK</label>
-                                        <input type="text" id="nik" class="form-control" placeholder="NIK" name="nik" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="kel" class="sr-only">Jenis Kelamin</label>
-                                        <input type="text" id="kel" class="form-control" placeholder="Jenis Kelamin" name="kel" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="email" class="sr-only">Email</label>
-                                        <input type="email" id="email" class="form-control" readonly placeholder="Email" name="email">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="nama" class="form-label">Nama Lengkap</label>
+                                                <input type="text" id="nama" class="form-control" placeholder="Nama Lengkap" name="nama" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="nik" class="form-label">NIK</label>
+                                                <input type="text" id="nik" class="form-control" placeholder="NIK" name="nik" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="kel" class="form-label">Jenis Kelamin</label>
+                                                <input type="text" id="kel" class="form-control" placeholder="Jenis Kelamin" name="kel" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" id="email" class="form-control" readonly placeholder="Email" name="email">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <h5>Data Mahasiswa</h5>
-                            <p class="card-text">
-                                Mohon lengkapi data anda dengan benar, Jika terjadi kesalahan data, admin tidak bertanggung jawab.
+                            <h5 class="mb-2">Data Mahasiswa</h5>
+                            <p class="card-text text-muted mb-4">
+                                Mohon lengkapi data anda dengan benar. Jika terjadi kesalahan data, admin tidak bertanggung jawab.
                             </p>
 
                             <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group row align-items-center">
-                                        <div class="col-lg-4 col-5">
-                                            <label class="col-form-label">NIM</label>
-                                        </div>
-                                        <div class="col-lg-6 col-5">
-                                            <input type="text" id="nim" class="form-control validate[required]" name="nim" placeholder="Nim">
-                                        </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="nim" class="form-label">NIM</label>
+                                        <input type="text" id="nim" class="form-control validate[required]" name="nim" placeholder="NIM">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group row align-items-center">
-                                        <div class="col-lg-4 col-5">
-                                            <label class="col-form-label">Program Studi</label>
-                                        </div>
-                                        <div class="col-lg-8 col-7">
-                                            <select class="form-select validate[required]" id="idprodi" name="idprodi"></select>
-                                        </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="idprodi" class="form-label">Program Studi</label>
+                                        <select class="form-select validate[required]" id="idprodi" name="idprodi"></select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row" id="rowktm">
-                                <div class="col-md-8">
-                                    <div class="form-group row align-items-center">
-                                        <div class="col-lg-4 col-5">
-                                            <label class="col-form-label">Upload Kartu Mahasiswa</label>
+                            <div class="row mb-3" id="rowktm">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label d-block">Upload Kartu Mahasiswa (KTM)</label>
+                                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                                            <button type="button" class="btn btn-outline-success btn-upload" data-iduser=""><i class="bi bi-upload"></i> Upload KTM</button>
+                                            <span class="text-muted" style="font-size: 0.8rem;">Format gambar (.jpg, .png), maksimum 750kb</span>
                                         </div>
-                                        <div class="col-lg-8 col-7">
-                                            upload gambar KTM maksimum 750kb
-                                            <button type="button" class="btn btn-outline-success btn-sm btn-upload" data-iduser=""><i class="bi bi-upload"></i></button>
-                                            <img src="<?= base_url("assets/img/kartumhs.png") ?>" id="kartumhs" width="100%">
+                                        <div class="mt-3" style="max-width: 300px;">
+                                            <img src="<?= base_url("assets/img/kartumhs.png") ?>" id="kartumhs" class="img-fluid rounded border shadow-sm">
                                         </div>
                                     </div>
                                 </div>

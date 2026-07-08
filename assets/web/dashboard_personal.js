@@ -420,6 +420,11 @@ function formprofil(db){
     $("#idposko").val(db['id']);
     $("#alamat").val(db['alamat']);
     $("#proker .ql-editor").html(db['proker']);
+    
+    // Set global coordinates from database if they exist
+    if(db['latitude'] !== null && db['latitude'] !== "") latitude = db['latitude'];
+    if(db['longitude'] !== null && db['longitude'] !== "") longitude = db['longitude'];
+
     let urlposko=null;
     if(db['path']){
         urlposko=vBase_url+db['path']+"?"+Math.random()*100;
@@ -444,7 +449,7 @@ function notifprofil(db){
             {
                 element: '.profil-posko',
                 title: 'Pemberitahuan',
-                content: 'coba kita cek ini profil posko ta? apa proker, alamat dan foto posko ta sudah benar mi kah? sepertinya masih ada yang kosong. coba kita diskusikan dan lengkapi dulu',
+                content: 'Silakan periksa profil posko Anda. Apakah program kerja (proker), alamat, koordinat lokasi, dan foto posko sudah benar? Sepertinya masih ada data yang belum lengkap. Silakan berdiskusi dengan kelompok Anda untuk melengkapinya.',
                 placement: 'bottom-start',
             },
         );
@@ -478,3 +483,11 @@ function loadprofil(idkelompok,statusprofil=true) {
 };
 
 loadprofil($("#idkelompok").val(),false);
+
+// Trigger Leaflet invalidateSize when posko modal is shown
+$('#modal-profil-posko').on('shown.bs.modal', function () {
+    map.invalidateSize();
+    if (latitude && longitude) {
+        map.setView([latitude, longitude], 13);
+    }
+});

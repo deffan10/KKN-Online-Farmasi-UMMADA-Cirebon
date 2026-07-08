@@ -284,3 +284,10 @@ a:hover {
 .comment-excerpt a {
   text-decoration: none !important;
 }
+
+/* Auto-upload UI adjustments - hide manual start/cancel buttons */
+#actions .start,
+#actions .cancel,
+#previews .start {
+  display: none !important;
+}
