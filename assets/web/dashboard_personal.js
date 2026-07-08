@@ -254,33 +254,45 @@ $(document).on("click keypress",".upload-aktifitas",function(e) {
 */
 
 $(document).on("change",".upload-aktifitas",function(e) {
-    if(confirm("apakah anda yakin upload file tersebut?")){
-
+    let files = $(this).prop('files');
+    if(files.length > 0 && confirm("Apakah Anda yakin ingin mengunggah " + files.length + " file tersebut?")){
         let idaktifitas = $(this).data("idaktifitas");
         let idpenempatan = $(this).data("idpenempatan");
-        let file_data = $(this).prop('files')[0];   
-        let vurl=vBase_url+"file/upload_aktifitas";
-        
-        let formVal = new FormData();                  
-        formVal.append('idpenempatan', idpenempatan);  
-        formVal.append('idaktifitas', idaktifitas);  
-        formVal.append('file', file_data);        
-        //console.log(vurl);
-        $.ajax({
-            url : vurl,
-            type : "post",
-            dataType : "json",
-            data : formVal,                         
-            cache : false,
-            contentType : false,
-            processData : false,
-            success : function(vRet){
-                if(vRet.status){
-                    refreshlkh();    
+        let vurl = vBase_url + "file/upload_aktifitas";
+        let uploadCount = 0;
+        let successCount = 0;
+
+        for (let i = 0; i < files.length; i++) {
+            let file_data = files[i];
+            let formVal = new FormData();
+            formVal.append('idpenempatan', idpenempatan);
+            formVal.append('idaktifitas', idaktifitas);
+            formVal.append('file', file_data);
+
+            $.ajax({
+                url : vurl,
+                type : "post",
+                dataType : "json",
+                data : formVal,
+                cache : false,
+                contentType : false,
+                processData : false,
+                success : function(vRet){
+                    uploadCount++;
+                    if(vRet.status){
+                        successCount++;
+                    } else {
+                        showNotification(false, vRet.pesan);
+                    }
+                    if(uploadCount === files.length){
+                        if(successCount > 0){
+                            refreshlkh();
+                        }
+                        showNotification(successCount > 0, successCount + " dari " + files.length + " file berhasil diunggah.");
+                    }
                 }
-                showNotification(vRet.status, vRet.pesan);
-            }
-        });
+            });
+        }
     }   
 });
 

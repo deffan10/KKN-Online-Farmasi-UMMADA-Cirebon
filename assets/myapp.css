@@ -291,3 +291,30 @@ a:hover {
 #previews .start {
   display: none !important;
 }
+
+/* LKH/Logbook Image Gallery Grid */
+.gambardet {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gambardet:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+
+/* Large top image styling */
+.gambardet-large {
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Small thumbnail styling */
+.gambardet-thumb {
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}

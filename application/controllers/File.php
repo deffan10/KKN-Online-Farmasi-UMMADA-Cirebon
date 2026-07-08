@@ -349,6 +349,24 @@ class File extends CI_Controller
                 if ($this->upload->do_upload('file')) {
                     $file_info = $this->upload->data();
                     $is_image = ($file_info['is_image']) ? 1 : 0;
+
+                    if ($is_image) {
+                        $this->load->library('image_lib');
+                        $config_img['image_library'] = 'gd2';
+                        $config_img['source_image'] = $file_info['full_path'];
+                        $config_img['create_thumb'] = FALSE;
+                        $config_img['maintain_ratio'] = TRUE;
+                        $config_img['quality'] = '70%';
+                        $config_img['width'] = 1200;
+                        $config_img['height'] = 1200;
+
+                        $this->image_lib->initialize($config_img);
+                        if ($this->image_lib->resize()) {
+                            $this->image_lib->clear();
+                            $file_info['file_size'] = filesize($file_info['full_path']) / 1024;
+                        }
+                    }
+
                     $dataSave = array(
                         'idaktifitas' => $idaktifitas,
                         'path' => $tmppath . $file_info['file_name'],

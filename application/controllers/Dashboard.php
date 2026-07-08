@@ -387,17 +387,17 @@ class Dashboard extends CI_Controller
                 $fileinfo = json_decode($dp['fileinfo'], true);
                 $url = base_url($dp['path']);
                 if (!$dp['is_image']) {
-                    $html .= "<div class='col-12'><i class='bi bi-file-pdf'></i> <a style='font-size:12px;' target='_blank' href='" . $url . "'>" . $fileinfo['client_name'] . "</a>";
+                    $html .= "<div class='col-12 mb-2'><i class='bi bi-file-pdf'></i> <a style='font-size:12px;' target='_blank' href='" . $url . "'>" . $fileinfo['client_name'] . "</a>";
                     if ($itsme && $ketkkn == 'terbuka') {
-                        $html .= "<a href='#' class='btn icon icon-left btn-sm hapus-lampiran' data-idupload='" . $dp['idupload'] . "' title='hapus lampiran'><i class='bi bi-trash'></i></a>";
+                        $html .= "<a href='#' class='btn icon icon-left btn-sm text-danger hapus-lampiran' data-idupload='" . $dp['idupload'] . "' title='hapus lampiran'><i class='bi bi-trash'></i></a>";
                     }
                     $html .= "</div>";
                 } else {
-                    $html .= "<div class='col-" . $divimg . "'>
-                               <img src='" . $url . "' class='w-100 gambardet'>
-                            ";
+                    $img_class = $firstimg ? "gambardet-large" : "gambardet-thumb";
+                    $html .= "<div class='col-" . $divimg . " mb-2 position-relative'>
+                               <img src='" . $url . "' class='w-100 gambardet " . $img_class . "'>";
                     if ($itsme && $ketkkn == 'terbuka') {
-                        $html .= "<a href='#' class='btn icon icon-left btn-sm hapus-lampiran' data-idupload='" . $dp['idupload'] . "' title='hapus lampiran'><i class='bi bi-trash'></i></a>";
+                        $html .= "<a href='#' class='btn btn-danger btn-sm position-absolute top-0 end-0 m-2 hapus-lampiran' data-idupload='" . $dp['idupload'] . "' title='hapus lampiran' style='border-radius: 50%; padding: 4px 8px; font-size: 10px; opacity: 0.85;'><i class='bi bi-trash'></i></a>";
                     }
                     $html .= "</div>";
                     if ($firstimg) {
@@ -580,7 +580,7 @@ class Dashboard extends CI_Controller
                     if ($dp['ketkkn'] == 'terbuka') {
                         $btn_hapusaktifitas = "<a href='#' class='btn icon icon-left btn-sm hapus-aktifitas' data-idaktifitas='" . $dp['idaktifitas'] . "' title='hapus aktifitas'><i class='bi bi-trash'></i></a>";
                         //$btn_uploadaktifitas = "<a href='#' class='btn icon icon-left btn-sm btn-upload-aktifitas' data-idaktifitas='" . $dp['idaktifitas'] . "' title='upload' ><i class='bi bi-upload'></i></a>";
-                        $btn_uploadaktifitas = "<input type='file' data-idpenempatan='" . $dp['idpenempatan'] . "' data-idaktifitas='" . $dp['idaktifitas'] . "' style='font-size:10px' class='upload-aktifitas' />";
+                        $btn_uploadaktifitas = "<input type='file' multiple data-idpenempatan='" . $dp['idpenempatan'] . "' data-idaktifitas='" . $dp['idaktifitas'] . "' style='font-size:10px' class='upload-aktifitas' />";
                     }
                 }
 
@@ -932,7 +932,7 @@ class Dashboard extends CI_Controller
                 $itsme = true;
                 $btn_hapusaktifitas = "<a href='#' class='btn icon icon-left btn-sm hapus-aktifitas' data-idaktifitas='" . $dp['idaktifitas'] . "' title='hapus aktifitas'><i class='bi bi-trash'></i></a>";
                 //$btn_uploadaktifitas = "<a href='#' class='btn icon icon-left btn-sm btn-upload-aktifitas' data-idaktifitas='" . $dp['idaktifitas'] . "' title='upload' ><i class='bi bi-upload'></i></a>";
-                $btn_uploadaktifitas = "<input type='file' data-idpenempatan='" . $dp['idpenempatan'] . "' data-idaktifitas='" . $dp['idaktifitas'] . "' style='font-size:10px' class='upload-aktifitas' />";
+                $btn_uploadaktifitas = "<input type='file' multiple data-idpenempatan='" . $dp['idpenempatan'] . "' data-idaktifitas='" . $dp['idaktifitas'] . "' style='font-size:10px' class='upload-aktifitas' />";
             }
             */
             $email = $dp['email'];
