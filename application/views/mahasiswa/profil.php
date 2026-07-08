@@ -29,12 +29,12 @@
                         <div class="form-body">
                             <div class="row mb-4">
                                 <h5 class="mb-3">Data Identitas</h5>
-                                <div class="col-md-2 text-center mb-3">
-                                    <div class="avatar avatar-xl">
-                                        <img src="<?= base_url("assets/img/user-avatar.png") ?>" id="fotoprofil" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                                <div class="col-md-3 text-center mb-3 d-flex align-items-center justify-content-center">
+                                    <div class="avatar" style="width: 150px; height: 150px;">
+                                        <img src="<?= base_url("assets/img/user-avatar.png") ?>" id="fotoprofil" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #03a49b; box-shadow: 0 4px 10px rgba(3,164,155,0.15);">
                                     </div>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">

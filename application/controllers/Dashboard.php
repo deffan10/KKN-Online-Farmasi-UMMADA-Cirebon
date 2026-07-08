@@ -415,15 +415,15 @@ class Dashboard extends CI_Controller
     {
         $ret = "<div class='card'>
                     <div class='card-body'>  
-                        <div class='row'>
-                            <div class='col-3 col-lg-2 col-md-2'>
+                        <div class='d-flex align-items-center mb-3 gap-3'>
+                            <div>
                                 <a href='#'>
                                     <div class='avatar avatar-xl'>
-                                        <img src='" . base_url("assets/img/pria.png") . "' height='65px'>
+                                        <img src='" . base_url("assets/img/pria.png") . "' style='width: 65px; height: 65px; object-fit: cover; border-radius: 50%;'>
                                     </div>
                                 </a>
                             </div>
-                            <div class='col-9 col-lg-10 col-md-10'>
+                            <div class='flex-grow-1'>
                                 <a href='#'>
                                     <h5 class='mb-0'>Admin</h5>
                                 </a>
@@ -434,11 +434,11 @@ class Dashboard extends CI_Controller
                                     </div>
                                     <div class='col-6'>
                                         <i class='bi bi-clock'></i> beberapa waktu lalu
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <hr style='margin-top:10px;'>
+                        </div>
+                        <hr style='margin-top:10px;'>
                             <div class='col-md-12'>
                                 <p>Belum ada LKH Mahasiswa yang dibuat pada system ini</p>
                             </div>  
@@ -593,15 +593,15 @@ class Dashboard extends CI_Controller
                     $email = preg_replace('/(?<=.)[^@](?=[^@]*?@)|(?:(?<=@.)|(?!^)\G(?=[^@]*$)).(?=.*\.)/', 'x', $email);
                 }
 
-                $html .= "  <div class='row'>
-                                <div class='col-3 col-lg-2 col-md-2'>
+                $html .= "  <div class='d-flex align-items-center mb-3 gap-3'>
+                                <div>
                                     <a href='" . $url . "'>
                                         <div class='avatar avatar-xl'>
-                                            <img src='" . base_url($dp['profilpic']) . "' height='65px'>
+                                            <img src='" . base_url($dp['profilpic']) . "' style='width: 65px; height: 65px; object-fit: cover; border-radius: 50%;'>
                                         </div>
                                     </a>
                                 </div>
-                                <div class='col-9 col-lg-10 col-md-10'>
+                                <div class='flex-grow-1'>
                                     <a href='" . $url . "'>
                                         <h5 class='mb-0' >" . $dp['nama'] . "</h5>
                                     </a>
@@ -616,6 +616,7 @@ class Dashboard extends CI_Controller
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         ";
                 $html .= "<hr style='margin-top:10px;' ><div class='col-md-12'>" . $dp['uraian'] . "</div>";
                 $html .= "  <div class='buttons'>
@@ -628,17 +629,17 @@ class Dashboard extends CI_Controller
                             <i class='bi bi-chat-left-text'></i> " . count($listkomentar) . " Komentar</div>";
                 if ($this->session->userdata('iduser')) {
                     $html .= "  <div class='form-group'>
-                                    <div class='row'>
-                                        <div class='col-md-2'>
-                                            <div class='avatar avatar-lg'>
-                                                <img src='" . $this->session->userdata('profilpic') . "' alt='Avatar'>
+                                    <div class='d-flex gap-3 align-items-start'>
+                                        <div>
+                                            <div class='avatar avatar-md'>
+                                                <img src='" . $this->session->userdata('profilpic') . "' alt='Avatar' style='width: 40px; height: 40px; object-fit: cover; border-radius: 50%;'>
                                             </div>
                                         </div>
-                                        <div class='col-md-10'>
+                                        <div class='flex-grow-1'>
                                             <form class='fkomentar'>
                                                 <input type='hidden' name='iduser' value='" . $dp['iduser'] . "'>
                                                 <input type='hidden' name='idaktifitas' value='" . $dp['idaktifitas'] . "'>
-                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
+                                                <textarea class='form-control komentar' name='komentar' rows='2' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
                                                 <div style='margin-top:5px;'>
                                                     <button type='submit' class='btn btn-primary btn-sm'>Kirim Komentar</button>
                                                 </div>
@@ -650,19 +651,19 @@ class Dashboard extends CI_Controller
                 }
                 foreach ($listkomentar as $i => $dx) {
                     //print_r($dx);
-                    $html .=    "<div class='row'>
-                                    <div class='col-md-1'>
+                    $html .=    "<div class='d-flex gap-3 align-items-start mb-3'>
+                                    <div>
                                         <div class='avatar avatar-sm'>
-                                            <img src='" . base_url($dx['profilpic']) . "' alt='Avatar'>
+                                            <img src='" . base_url($dx['profilpic']) . "' alt='Avatar' style='width: 32px; height: 32px; object-fit: cover; border-radius: 50%;'>
                                         </div>
                                     </div>
-                                    <div class='col-md-11'>
-                                        <h6>" . $dx['nama'] . "</h6> 
-                                        <div style='font-size:11px'><i class='bi bi-clock'></i> " . waktu_lalu($dx['waktu']) . "</div>
-                                        <div>&ldquo;" . $dx['komentar'] . "&rdquo;</div>
-                                        <hr>
+                                    <div class='flex-grow-1'>
+                                        <h6 class='mb-1'>" . $dx['nama'] . "</h6> 
+                                        <div style='font-size:11px' class='text-muted mb-1'><i class='bi bi-clock'></i> " . waktu_lalu($dx['waktu']) . "</div>
+                                        <div style='font-size:13px;'>&ldquo;" . $dx['komentar'] . "&rdquo;</div>
                                     </div>
-                                </div>";
+                                </div>
+                                <hr class='my-2'>";
                     if ($i >= 4) {
                         $html .=    "<div class='row'>
                                         <div class='col-md-12'><a href='" . base_url("dashboard/detail_aktifitas/" . $dp['idaktifitas']) . "'>Selengkapnya...</a>
@@ -940,15 +941,15 @@ class Dashboard extends CI_Controller
 
             $html = "<div class='card rowlkh' data-id='" . $dp['idaktifitas'] . "'>";
             $html .= "<div class='card-body'>";
-            $html .= "  <div class='row'>
-                                <div class='col-3 col-lg-2 col-md-2'>
+            $html .= "  <div class='d-flex align-items-center mb-3 gap-3'>
+                                <div>
                                     <a href='" . $url . "'>
                                         <div class='avatar avatar-xl'>
-                                            <img src='" . base_url($dp['profilpic']) . "' height='65px'>
+                                            <img src='" . base_url($dp['profilpic']) . "' style='width: 65px; height: 65px; object-fit: cover; border-radius: 50%;'>
                                         </div>
                                     </a>
                                 </div>
-                                <div class='col-9 col-lg-10 col-md-10'>
+                                <div class='flex-grow-1'>
                                     <a href='" . $url . "'>
                                         <h5 class='mb-0' >" . $dp['nama'] . "</h5>
                                     </a>
@@ -963,6 +964,7 @@ class Dashboard extends CI_Controller
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         ";
             $html .= "<hr style='margin-top:10px;' ><div class='col-md-12'>" . $dp['uraian'] . "</div>";
             $html .= "  <div class='buttons'>
@@ -975,17 +977,17 @@ class Dashboard extends CI_Controller
                             <i class='bi bi-chat-left-text'></i> " . count($listkomentar) . " Komentar</div>";
             if ($this->session->userdata('iduser')) {
                 $html .= "  <div class='form-group'>
-                                    <div class='row'>
-                                        <div class='col-md-2'>
-                                            <div class='avatar avatar-lg'>
-                                                <img src='" . $this->session->userdata('profilpic') . "' alt='Avatar'>
+                                    <div class='d-flex gap-3 align-items-start'>
+                                        <div>
+                                            <div class='avatar avatar-md'>
+                                                <img src='" . $this->session->userdata('profilpic') . "' alt='Avatar' style='width: 40px; height: 40px; object-fit: cover; border-radius: 50%;'>
                                             </div>
                                         </div>
-                                        <div class='col-md-10'>
+                                        <div class='flex-grow-1'>
                                             <form class='fkomentar'>
                                                 <input type='hidden' name='idaktifitas' value='" . $dp['idaktifitas'] . "'>
                                                 <input type='hidden' name='iduser' value='" . $dp['iduser'] . "'>
-                                                <textarea class='form-control komentar' name='komentar' rows='3' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
+                                                <textarea class='form-control komentar' name='komentar' rows='2' placeholder='Halo " . $this->session->userdata('nama') . ", silakan tulis komentar Anda di sini...'></textarea>
                                                 <div style='margin-top:5px;'>
                                                     <button type='submit' class='btn btn-primary btn-sm'>Kirim Komentar</button>
                                                 </div>
@@ -997,19 +999,19 @@ class Dashboard extends CI_Controller
             }
             foreach ($listkomentar as $i => $dx) {
                 //print_r($dx);
-                $html .=    "<div class='row'>
-                                    <div class='col-md-1'>
+                $html .=    "<div class='d-flex gap-3 align-items-start mb-3'>
+                                    <div>
                                         <div class='avatar avatar-sm'>
-                                            <img src='" . base_url($dx['profilpic']) . "' alt='Avatar'>
+                                            <img src='" . base_url($dx['profilpic']) . "' alt='Avatar' style='width: 32px; height: 32px; object-fit: cover; border-radius: 50%;'>
                                         </div>
                                     </div>
-                                    <div class='col-md-11'>
-                                        <h6>" . $dx['nama'] . "</h6> 
-                                        <div style='font-size:11px'><i class='bi bi-clock'></i> " . waktu_lalu($dx['waktu']) . "</div>
-                                        <div>&ldquo;" . $dx['komentar'] . "&rdquo;</div>
-                                        <hr>
+                                    <div class='flex-grow-1'>
+                                        <h6 class='mb-1'>" . $dx['nama'] . "</h6> 
+                                        <div style='font-size:11px' class='text-muted mb-1'><i class='bi bi-clock'></i> " . waktu_lalu($dx['waktu']) . "</div>
+                                        <div style='font-size:13px;'>&ldquo;" . $dx['komentar'] . "&rdquo;</div>
                                     </div>
-                                </div>";
+                                </div>
+                                <hr class='my-2'>";
             }
             $html .= "</div>";
             $html .= "</div>";
