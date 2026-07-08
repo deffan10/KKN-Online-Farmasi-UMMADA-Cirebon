@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-4">
                                     <h4 class="mb-0 font-extrabold" style="color: #d97706 !important; font-size: 1.4rem;"><?= $jadwal['aktifitas_count'] ?></h4>
-                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block; white-space: nowrap;">LKH (Kegiatan)</span>
+                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block; white-space: nowrap;">Logbook (Kegiatan)</span>
                                 </div>
                             </div>
                         </div>

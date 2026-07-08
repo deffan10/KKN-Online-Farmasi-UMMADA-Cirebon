@@ -1,5 +1,5 @@
 <?php
-$title = "LKH Mahasiswa " . $ispeserta['tema'] . " (" . $ispeserta['tahun'] . ") ";
+$title = "Logbook Mahasiswa " . $ispeserta['tema'] . " (" . $ispeserta['tahun'] . ") ";
 $title .= "Nama : " . $ispeserta['nama'] . " ";
 $title .= "(Nim " . $ispeserta['nim'] . "/ Prodi " . $ispeserta['prodi'] . " ) ";
 $title .= "Kelompok " . $ispeserta['namakelompok'] . " desa " . $ispeserta['desa'];
@@ -28,7 +28,7 @@ $title .= "Kelompok " . $ispeserta['namakelompok'] . " desa " . $ispeserta['desa
 <section class="section">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="card-title d-flex">LKH Mahasiswa</h4>
+            <h4 class="card-title d-flex">Logbook Mahasiswa</h4>
             <div class="list-inline d-flex">
                 <div class="buttons">
                     <?php if ($ispeserta['ketkkn'] == "terbuka") { ?>

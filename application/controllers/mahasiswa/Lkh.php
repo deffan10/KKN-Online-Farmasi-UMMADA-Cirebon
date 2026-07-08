@@ -8,11 +8,11 @@ class Lkh extends CI_Controller
         "otentikasi" => array(),
         "primaryKey" => "id",
         "web" => array(
-            "title" => "Daftar LKH",
+            "title" => "Daftar Logbook",
             "parent" => array("pengaturan"),
             "modul" => "mahasiswa/lkh",
             "view"  => "mahasiswa",
-            "page"    => "LKH",
+            "page"    => "Logbook",
         ),
     );
     private $retVal = array("status" => false, "pesan" => "");
@@ -109,7 +109,7 @@ class Lkh extends CI_Controller
                                 
                                     <button type='button' class='btn btn-primary dropdown-toggle' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>
                                     <div class='dropdown-menu dropdown-menu-end' style=''>
-                                        <a href='" . base_url('dashboard/detail_aktifitas/' . $dp['id']) . "' class='dropdown-item' target='_blank'><i class='bi bi-arrow-up-right-square-fill'></i> Detail LKH</a>
+                                             <a href='" . base_url('dashboard/detail_aktifitas/' . $dp['id']) . "' class='dropdown-item' target='_blank'><i class='bi bi-arrow-up-right-square-fill'></i> Detail Logbook</a>
                                         <a class='dropdown-item editRow' data-pilih='" . $no . "' data-id='" . $dp['id'] . "' href='#'><i class='bi bi-pencil-square'></i> Ganti</a>
                                         <a class='dropdown-item deleteRow' data-pilih='" . $no . "' data-id='" . $dp['id'] . "' href='#'><i class='bi bi-trash'></i> Hapus</a>
                                     </div>
@@ -122,7 +122,7 @@ class Lkh extends CI_Controller
                                     
                                         <button type='button' class='btn btn-primary dropdown-toggle' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>
                                         <div class='dropdown-menu dropdown-menu-end' style=''>
-                                            <a href='" . base_url('dashboard/detail_aktifitas/' . $dp['id']) . "' class='dropdown-item' target='_blank'><i class='bi bi-arrow-up-right-square-fill'></i> Detail LKH</a>
+                                            <a href='" . base_url('dashboard/detail_aktifitas/' . $dp['id']) . "' class='dropdown-item' target='_blank'><i class='bi bi-arrow-up-right-square-fill'></i> Detail Logbook</a>
                                         </div>
                                     </div>
                                 </div>";

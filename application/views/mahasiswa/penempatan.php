@@ -43,8 +43,8 @@
                                 </ul>
 
                                 <div class="btn-group mb-3" role="group">
-                                    <a href="<?= base_url('dashboard/personal/' . $dp['idpenempatan']) ?>" class="btn btn-primary"><i class="bi bi-journal-album"></i> DASHBOARD LKH</a>
-                                    <a href="<?= base_url('mahasiswa/lkh/' . $dp['idpenempatan']) ?>" class="btn btn-success"><i class="bi bi-book"></i> DATA LKH</a>
+                                    <a href="<?= base_url('dashboard/personal/' . $dp['idpenempatan']) ?>" class="btn btn-primary"><i class="bi bi-journal-album"></i> DASHBOARD LOGBOOK</a>
+                                    <a href="<?= base_url('mahasiswa/lkh/' . $dp['idpenempatan']) ?>" class="btn btn-success"><i class="bi bi-book"></i> DATA LOGBOOK</a>
                                     <a href="#" class="btn btn-secondary upload-output" data-idkkn="<?= $dp['idkkn'] ?>" data-idpenempatan="<?= $dp['idpenempatan'] ?>"><i class="bi bi-upload"></i> Output</a>
                                 </div>
                                 </p>

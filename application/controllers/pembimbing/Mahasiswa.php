@@ -118,7 +118,7 @@ class Mahasiswa extends CI_Controller
             $tmp['urut'] = $dp['urut'];
             $tmp['nilai_angka'] = "<input title='0 sd 100' type='number' class='form-control validate[required] nilaimhs' style='width:85px;' data-idnilai='" . $dp['idnilai'] . "' data-idpenempatan='" . $dp['idpenempatan'] . "' data-idmst_penilaian='1'  value='" . $dp['nilai_angka'] . "'>
                                     <div class='btn-group mt-3' role='group' >
-                                        <a title='LKH Mahasiswa' target='_blank' href='" . base_url("dashboard/personal/" . $dp['idpenempatan']) . "' class='btn btn-primary'><i class='bi bi-journal-album'></i> " . $dp['jumaktifitas'] . "</a>
+                                        <a title='Logbook Mahasiswa' target='_blank' href='" . base_url("dashboard/personal/" . $dp['idpenempatan']) . "' class='btn btn-primary'><i class='bi bi-journal-album'></i> " . $dp['jumaktifitas'] . "</a>
                                         <a title='Output' target='_blank' href='" . base_url("file/detail_output/" . $dp['idpenempatan']) . "' class='btn btn-secondary'><i class='bi bi-paperclip'></i> " . $dp['jumupload'] . " </a>
                                     </div>";
 

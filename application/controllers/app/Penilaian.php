@@ -126,7 +126,7 @@ class Penilaian extends CI_Controller
             $tmp['nilai_angka2'] = $dp['nilai_angka2'];
             $tmp['nilai_input'] = "<input title='0 sd 100' type='number' class='form-control validate[required] nilaimhs' style='width:100px;' data-idnilai='" . $dp['idnilai2'] . "' data-idpenempatan='" . $dp['idpenempatan'] . "' data-idmst_penilaian='2'  value='" . $dp['nilai_angka2'] . "'>
                                     <div class='btn-group mt-3' role='group' style='font-size:12px'>
-                                        <a title='LKH Mahasiswa' target='_blank' href='" . base_url("dashboard/personal/" . $dp['idpenempatan']) . "' class='btn btn-primary'><i class='bi bi-journal-album'></i> </a>
+                                        <a title='Logbook Mahasiswa' target='_blank' href='" . base_url("dashboard/personal/" . $dp['idpenempatan']) . "' class='btn btn-primary'><i class='bi bi-journal-album'></i> </a>
                                         <a title='Output' target='blank_' href='" . base_url("file/detail_output/" . $dp['idpenempatan']) . "' class='btn btn-secondary'><i class='bi bi-paperclip'></i>" . $dp['jumupload'] . "</a>
                                     </div>";
 

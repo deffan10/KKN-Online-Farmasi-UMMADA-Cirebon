@@ -74,7 +74,7 @@
                                 $grupakun = json_decode($this->session->userdata('idgrup'), true);
                                 if (in_array(4, $grupakun)) { ?>
                                     <li class="submenu-item  ">
-                                        <a href="<?= base_url("mahasiswa/penempatan/lkhmahasiswa") ?>" class='submenu-link'>LKH <?= $this->config->item('app_singkatan') ?></a>
+                                        <a href="<?= base_url("mahasiswa/penempatan/lkhmahasiswa") ?>" class='submenu-link'>Logbook <?= $this->config->item('app_singkatan') ?></a>
                                     </li>
                                 <?php } ?>
 

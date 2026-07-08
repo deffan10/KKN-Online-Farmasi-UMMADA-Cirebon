@@ -440,7 +440,7 @@ class Dashboard extends CI_Controller
                         </div>
                         <hr style='margin-top:10px;'>
                             <div class='col-md-12'>
-                                <p>Belum ada LKH Mahasiswa yang dibuat pada system ini</p>
+                                <p>Belum ada Logbook Mahasiswa yang dibuat pada sistem ini</p>
                             </div>  
                             <div style='font-size:13px;margin-bottom:5px;'>
                                 <i class='bi bi-hand-thumbs-up'></i> 0 Like &nbsp; 
@@ -627,6 +627,7 @@ class Dashboard extends CI_Controller
                 $html .= "<div style='font-size:14px;margin-bottom:5px;'>
                             <i class='bi " . $thumbs . "' data-iduser='" . $dp['iduser'] . "' data-idaktifitas='" . $dp['idaktifitas'] . "'></i> " . count($listlike) . " Like &nbsp; 
                             <i class='bi bi-chat-left-text'></i> " . count($listkomentar) . " Komentar</div>";
+                $html .= "<hr style='border-top: 1px solid #e5e7eb; opacity: 0.6; margin: 12px 0;' class='comment-separator'>";
                 if ($this->session->userdata('iduser')) {
                     $html .= "  <div class='form-group'>
                                     <div class='d-flex gap-3 align-items-start'>
@@ -973,8 +974,9 @@ class Dashboard extends CI_Controller
             $html .= $this->listlampiran($listlampiran, $itsme);
 
             $html .= "<div style='font-size:14px;margin-bottom:5px;'>
-                            <i class='bi " . $thumbs . "' data-idaktifitas='" . $dp['idaktifitas'] . "' data-iduser='" . $dp['iduser'] . "'></i> " . count($listlike) . " Like &nbsp; 
-                            <i class='bi bi-chat-left-text'></i> " . count($listkomentar) . " Komentar</div>";
+                             <i class='bi " . $thumbs . "' data-idaktifitas='" . $dp['idaktifitas'] . "' data-iduser='" . $dp['iduser'] . "'></i> " . count($listlike) . " Like &nbsp; 
+                             <i class='bi bi-chat-left-text'></i> " . count($listkomentar) . " Komentar</div>";
+             $html .= "<hr style='border-top: 1px solid #e5e7eb; opacity: 0.6; margin: 12px 0;' class='comment-separator'>";
             if ($this->session->userdata('iduser')) {
                 $html .= "  <div class='form-group'>
                                     <div class='d-flex gap-3 align-items-start'>
