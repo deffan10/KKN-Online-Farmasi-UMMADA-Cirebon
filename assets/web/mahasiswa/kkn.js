@@ -115,6 +115,33 @@ $(".kelengkapan").click(function(e) {
 $(document).on("click",".btn-upload",function (e) {
     e.preventDefault();
     idadministrasi=$(this).data("idadministrasi");
+    let uploadType=$(this).data("uploadtype");
+    let uploadSize=parseFloat($(this).data("uploadsize"));
+
+    let accepted = 'application/pdf'; // default
+    if (uploadType === 'img') {
+        accepted = 'image/jpeg,image/png,image/gif';
+    } else if (uploadType === 'doc') {
+        accepted = '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    } else if (uploadType === 'xls') {
+        accepted = '.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    } else if (uploadType === 'ppt') {
+        accepted = '.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation';
+    } else if (uploadType === 'pdf') {
+        accepted = 'application/pdf';
+    }
+
+    myDropzone.options.acceptedFiles = accepted;
+    if (uploadSize && !isNaN(uploadSize) && uploadSize > 0) {
+        myDropzone.options.maxFilesize = uploadSize;
+    } else {
+        myDropzone.options.maxFilesize = vMaxSize / 1000;
+    }
+
+    if (myDropzone.hiddenFileInput) {
+        myDropzone.hiddenFileInput.setAttribute("accept", accepted);
+    }
+
     var myModal = new bootstrap.Modal(document.getElementById('fModalUpload'), {
             backdrop: 'static',
             keyboard: false,

@@ -118,8 +118,10 @@ class Api extends CI_Controller
                     if ($dp['ketpendaftaran'] && in_array(4, $idgrup) && $modeinput)
                         $detupload .= "<button type='button' class='btn btn-outline-danger btn-sm btn-hapus-upload' data-idpendaftar='" . $dp['idpendaftar'] . "' data-idupload='" . $dp['idupload'] . "' data-idadministrasi='" . $dp['idadministrasi'] . "' ><i class='bi bi-x-lg'></i></button>";
                 }
-                if ($dp['ketpendaftaran'] && in_array(4, $idgrup) && $modeinput)
-                    $btnUpload = "<button type='button' class='btn btn-outline-success btn-sm btn-upload' data-idpendaftar='" . $dp['idpendaftar'] . "' data-idupload='" . $dp['idupload'] . "' data-idadministrasi='" . $dp['idadministrasi'] . "' ><i class='bi bi-upload'></i></button>";
+                if ($dp['ketpendaftaran'] && in_array(4, $idgrup) && $modeinput) {
+                    $upload_size_mb = $dp['upload_size'] > 0 ? ($dp['upload_size'] / 1000) : 0;
+                    $btnUpload = "<button type='button' class='btn btn-outline-success btn-sm btn-upload' data-idpendaftar='" . $dp['idpendaftar'] . "' data-idupload='" . $dp['idupload'] . "' data-idadministrasi='" . $dp['idadministrasi'] . "' data-uploadtype='" . $dp['upload_type'] . "' data-uploadsize='" . $upload_size_mb . "'><i class='bi bi-upload'></i></button>";
+                }
             }
 
             $retVal .= "<div class='row'>";

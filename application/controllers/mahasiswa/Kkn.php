@@ -120,11 +120,40 @@ class Kkn extends CI_Controller
             if (!file_exists($fullpath))
                 mkdir($fullpath, 0755, true);
 
+            // Fetch administrasi upload requirement details
+            $this->db->from("administrasi");
+            $this->db->select("upload_type, upload_size");
+            $this->db->where("id", $idadministrasi);
+            $reqQuery = $this->db->get();
+
+            $allowed_types = 'pdf'; // default fallback
+            $max_size = $this->config->item("max_size"); // default fallback
+
+            if ($reqQuery->num_rows() > 0) {
+                $req = $reqQuery->row();
+                $upload_type = $req->upload_type;
+                if ($req->upload_size > 0) {
+                    $max_size = $req->upload_size;
+                }
+
+                if ($upload_type == 'img') {
+                    $allowed_types = 'gif|jpg|png|jpeg';
+                } elseif ($upload_type == 'doc') {
+                    $allowed_types = 'doc|docx';
+                } elseif ($upload_type == 'xls') {
+                    $allowed_types = 'xls|xlsx';
+                } elseif ($upload_type == 'ppt') {
+                    $allowed_types = 'ppt|pptx';
+                } elseif ($upload_type == 'pdf') {
+                    $allowed_types = 'pdf';
+                }
+            }
+
             $config['file_name'] = $idpendaftar . "-" . $idadministrasi;
             //$config['encrypt_name'] = TRUE;
             $config['upload_path'] = $fullpath;
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = $this->config->item("max_size");
+            $config['allowed_types'] = $allowed_types;
+            $config['max_size'] = $max_size;
             $config['overwrite'] = true;
 
             $this->load->library('upload', $config);
