@@ -232,6 +232,8 @@ a:hover {
   margin-left: 6px !important;
   vertical-align: middle !important;
   display: inline-block !important;
+  border-top-color: #fff !important;
+  color: #fff !important;
 }
 
 .main-navbar .menu-item .menu-link i,

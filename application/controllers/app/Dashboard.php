@@ -126,6 +126,8 @@ class Dashboard extends CI_Controller
             $this->db->join("wilayah_kec as kec", "kec.id=wd.idkecamatan", "left");
             $this->db->join("wilayah_kab as kab", "kab.id=kec.idkabupaten", "left");
             $this->db->where("u.id", $iduser);
+            $this->db->where("kkn.aktif", "Y");
+            $this->db->where("kkn.tahun", date("Y"));
             $dplQuery = $this->db->get();
             if ($dplQuery->num_rows() > 0) {
                 $this->d['dpl_kkn'] = $dplQuery->result_array();
