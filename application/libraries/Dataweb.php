@@ -112,24 +112,32 @@ class Dataweb
     public function cariGrupUser($vCari = [], $offset = 0, $page_limit = 0)
     {
         $retVal = array("status" => false, "pesan" => "tidak ditemukan", "db" => []);
+        $q_admin = $this->CI->db->where('tableref', 'admin')->get('grup')->row();
+        $q_mhs = $this->CI->db->where('tableref', 'mahasiswa')->get('grup')->row();
+        $q_pem = $this->CI->db->where('tableref', 'pembimbing')->get('grup')->row();
+        
+        $idg_admin = $q_admin ? $q_admin->id : 1;
+        $idg_mhs = $q_mhs ? $q_mhs->id : 4;
+        $idg_pem = $q_pem ? $q_pem->id : 3;
+
         $this->CI->db->from("user as u");
         $this->CI->db->select("u.*,
-            IF(a.id IS NOT NULL,
-                CONCAT('{\"status\":\"1\",\"idgrup\":\"',a.idgrup,'\",\"aktif\":\"',a.aktivasi,'\"}'),
+            IF(ha_admin.id IS NOT NULL,
+                CONCAT('{\"status\":\"1\",\"idgrup\":\"',ha_admin.idgrup,'\",\"aktif\":\"',ha_admin.aktivasi,'\"}'),
                 CONCAT('{\"status\":\"0\",\"idgrup\":\"0\",\"aktif\":\"n\"}')
                 ) as is_admin,
-            IF(m.id IS NOT NULL,
-                CONCAT('{\"status\":\"1\",\"idgrup\":\"',m.idgrup,'\",\"aktif\":\"',m.aktivasi,'\"}'),
+            IF(ha_mhs.id IS NOT NULL,
+                CONCAT('{\"status\":\"1\",\"idgrup\":\"',ha_mhs.idgrup,'\",\"aktif\":\"',ha_mhs.aktivasi,'\"}'),
                 CONCAT('{\"status\":\"0\",\"idgrup\":\"0\",\"aktif\":\"n\"}')
                 ) as is_mahasiswa,
-            IF(p.id IS NOT NULL,
-                CONCAT('{\"status\":\"1\",\"idgrup\":\"',p.idgrup,'\",\"aktif\":\"',p.aktivasi,'\"}'),
+            IF(ha_pem.id IS NOT NULL,
+                CONCAT('{\"status\":\"1\",\"idgrup\":\"',ha_pem.idgrup,'\",\"aktif\":\"',ha_pem.aktivasi,'\"}'),
                 CONCAT('{\"status\":\"0\",\"idgrup\":\"0\",\"aktif\":\"n\"}')
                 ) as is_pembimbing,
         ");
-        $this->CI->db->join("admin as a", "a.iduser=u.id", "left");
-        $this->CI->db->join("mahasiswa as m", "m.iduser=u.id", "left");
-        $this->CI->db->join("pembimbing as p", "p.iduser=u.id", "left");
+        $this->CI->db->join("hakakses as ha_admin", "ha_admin.iduser=u.id AND (ha_admin.idgrup={$idg_admin} OR ha_admin.idgrup=2)", "left");
+        $this->CI->db->join("hakakses as ha_mhs", "ha_mhs.iduser=u.id AND ha_mhs.idgrup={$idg_mhs}", "left");
+        $this->CI->db->join("hakakses as ha_pem", "ha_pem.iduser=u.id AND ha_pem.idgrup={$idg_pem}", "left");
         $this->CI->db->order_by("u.id ASC");
 
         if ($page_limit > 0)
