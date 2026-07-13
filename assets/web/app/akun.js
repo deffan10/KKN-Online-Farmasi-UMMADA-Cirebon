@@ -233,7 +233,6 @@ $(document).on("click", ".editRow", function (e) {
         if (dataLoad.status) {
             let dtweb = dataLoad.db[0];
             //console.log(dtweb);
-            /*
             let ids = [];
             let is_admin = JSON.parse(dtweb.is_admin);
             let is_mahasiswa = JSON.parse(dtweb.is_mahasiswa);
@@ -251,7 +250,6 @@ $(document).on("click", ".editRow", function (e) {
                 ids.push(is_pembimbing.idgrup);
 
             $('#idgrup').val(ids).trigger('change');
-            */
             $('#kel').val(dtweb.kel).trigger('change');
 
             $("#check-password").show();

@@ -77,6 +77,14 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label>Grup Akun / Role</label>
+                                <select class="form-select validate[required]" id="idgrup" name="idgrup[]" multiple="multiple" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Gelar Depan</label>

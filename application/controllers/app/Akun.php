@@ -234,33 +234,67 @@ class Akun extends CI_Controller
             $this->form_validation->set_rules('pass2', 'Ulangi password', 'required|matches[pass1]');
         }
 
-        // $idgrup = $this->input->post('idgrup');
-        // if (count($idgrup) < 1) {
-        //     $retVal['pesan'] = ["grup tidak boleh kosong"];
-        //     die(json_encode($retVal));
-        // }
+        $idgrup = $this->input->post('idgrup');
+        if (empty($idgrup) || !is_array($idgrup) || count($idgrup) < 1) {
+            $retVal['pesan'] = ["Grup / Role tidak boleh kosong"];
+            die(json_encode($retVal));
+        }
 
         if ($this->form_validation->run()) {
             $dataSave = $this->input->post();
             $id = $dataSave['id'];
             unset($dataSave['id']);
-            // unset($dataSave['idgrup']);
+            unset($dataSave['idgrup']);
             if ($this->input->post('pass1')) {
-                // $dataSave['fldpass'] = $dataSave['pass1'];
                 $dataSave['fldpass'] = password_hash($dataSave['pass1'], PASSWORD_DEFAULT);
             }
             unset($dataSave['pass1']);
             unset($dataSave['pass2']);
-            //debug($dataSave);
             unset($dataSave['gantipass']);
 
             if ($id == "" && akses_akun("insert", $this->otentikasi)->status) {
                 $retVal = $this->Model_data->save($dataSave, $this->d['tbName'], null, true);
+                if ($retVal['status']) {
+                    $new_id = $retVal['id'];
+                    foreach ($idgrup as $gid) {
+                        $this->db->insert('hakakses', array(
+                            'iduser' => $new_id,
+                            'owned' => $new_id,
+                            'idgrup' => $gid,
+                            'aktivasi' => '1',
+                            'created' => date("Y-m-d H:i:s")
+                        ));
+                    }
+                }
             } elseif ($id <> "" && akses_akun("update", $this->otentikasi, $this->d['tbName'], $id)->status) {
                 $kond = array(
                     array("where", $this->d['primaryKey'], $id),
                 );
                 $retVal = $this->Model_data->update($kond, $dataSave, $this->d['tbName'], null, true);
+                if ($retVal['status']) {
+                    // Fetch existing hakakses roles for this user
+                    $existing = $this->db->where('iduser', $id)->get('hakakses')->result_array();
+                    $existing_gids = array_column($existing, 'idgrup');
+
+                    // Add new groups
+                    foreach ($idgrup as $gid) {
+                        if (!in_array($gid, $existing_gids)) {
+                            $this->db->insert('hakakses', array(
+                                'iduser' => $id,
+                                'owned' => $id,
+                                'idgrup' => $gid,
+                                'aktivasi' => '1',
+                                'created' => date("Y-m-d H:i:s")
+                            ));
+                        }
+                    }
+
+                    // Remove deselected groups
+                    $to_delete = array_diff($existing_gids, $idgrup);
+                    if (!empty($to_delete)) {
+                        $this->db->where('iduser', $id)->where_in('idgrup', $to_delete)->delete('hakakses');
+                    }
+                }
             } else {
                 $retVal['pesan'] = "Maaf, akses ditolak";
             }

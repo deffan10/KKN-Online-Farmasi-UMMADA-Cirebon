@@ -36,8 +36,8 @@
     </div>
 
     <div class="form-group position-relative has-icon-left mb-4">
-        <select name="idgrup" id="idgrup" class="form-control form-control-xl select_grup validate[required]" style="padding-left: 3rem;">
-            <option value="">- Pilih Status -</option>
+        <select name="idgrup" id="idgrup" class="form-control form-control-xl select_grup validate[required]" required style="padding-left: 3rem;">
+            <option value="" disabled selected>- Pilih Status -</option>
             <?php foreach ($selectgrup as $i => $dp) { ?>
                 <option value="<?= $dp['id'] ?>"><?= ucfirst($dp['nama_grup']) ?></option>
             <?php } ?>
