@@ -12,7 +12,69 @@
         </div>
     </div>
 </div>
-
+<?php if (!empty($peserta_kkn)) { ?>
+    <section class="section mb-4">
+        <div class="card shadow-sm border">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
+                <h4 class="card-title text-white mb-0" style="font-size: 1.1rem;"><i class="bi bi-patch-check-fill me-2"></i> Jadwal & Penempatan KKN Anda</h4>
+                <span class="badge bg-white text-success font-semibold">Aktif</span>
+            </div>
+            <div class="card-body pt-4">
+                <?php foreach ($peserta_kkn as $pk) { ?>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="text-primary mb-3"><?= $pk['tema'] ?> (<?= $pk['jenis'] ?>)</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-geo-alt-fill text-danger fs-5 me-2"></i>
+                                        <div>
+                                            <span class="text-muted d-block" style="font-size: 0.8rem;">Lokasi / Desa</span>
+                                            <strong><?= $pk['tempat'] ?> (Desa <?= $pk['desa'] ?>)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-people-fill text-info fs-5 me-2"></i>
+                                        <div>
+                                            <span class="text-muted d-block" style="font-size: 0.8rem;">Kelompok</span>
+                                            <strong><?= $pk['namakelompok'] ?></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person-badge-fill text-warning fs-5 me-2"></i>
+                                        <div>
+                                            <span class="text-muted d-block" style="font-size: 0.8rem;">Jabatan / Peran</span>
+                                            <strong><?= $pk['jabatan'] ?></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-calendar-check-fill text-success fs-5 me-2"></i>
+                                        <div>
+                                            <span class="text-muted d-block" style="font-size: 0.8rem;">Pelaksanaan KKN</span>
+                                            <strong><?= date('d M Y', strtotime($pk['kknmulai'])) ?> - <?= date('d M Y', strtotime($pk['kknselesai'])) ?></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <div class="d-grid gap-2">
+                                <a href="<?= base_url('dashboard/personal/' . $pk['idpenempatan']) ?>" class="btn btn-primary btn-sm"><i class="bi bi-journal-album me-1"></i> Dashboard Logbook</a>
+                                <a href="<?= base_url('mahasiswa/lkh/' . $pk['idpenempatan']) ?>" class="btn btn-success btn-sm"><i class="bi bi-book me-1"></i> Data Logbook</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </section>
+<?php } ?>
 
 <?php if (!empty($jadwal_aktif)) { ?>
     <section class="section mb-4">

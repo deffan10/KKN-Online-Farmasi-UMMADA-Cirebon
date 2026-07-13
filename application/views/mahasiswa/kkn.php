@@ -65,11 +65,15 @@
                                 echo "<h5>Keterangan</h5>";
                                 echo "<div>" . $dp['keterangan'] . "</div>";
 
-                                //if ($periksa)
-                                if ($dp['ispeserta'])
-                                    echo "<span class='badge bg-success'>Memenuhi Syarat Sebagai Peserta KKN</span>";
-                                //  else
-                                //    echo "<span class='badge bg-danger'>Tidak Memenuhi Syarat Sebagai Peserta KKN</span>";
+                                if ($dp['idpendaftar']) {
+                                    if ($dp['ispeserta']) {
+                                        echo "<div class='mt-2'><span class='badge bg-success' style='font-size:0.9rem;'><i class='bi bi-patch-check-fill me-1'></i> Status: Sudah Menjadi Peserta KKN</span></div>";
+                                    } else {
+                                        echo "<div class='mt-2'><span class='badge bg-warning text-dark' style='font-size:0.9rem;'><i class='bi bi-hourglass-split me-1'></i> Status: Sudah Terdaftar, Menunggu Verifikasi Berkas</span></div>";
+                                    }
+                                } else {
+                                    echo "<div class='mt-2'><span class='badge bg-secondary' style='font-size:0.9rem;'><i class='bi bi-info-circle-fill me-1'></i> Status: Belum Terdaftar</span></div>";
+                                }
 
                                 ?>
                                 </p>

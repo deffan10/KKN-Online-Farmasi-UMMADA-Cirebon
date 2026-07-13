@@ -86,6 +86,20 @@ class Dashboard extends CI_Controller
 
         $this->d['jadwal_aktif'] = $jadwal_aktif;
 
+        // Fetch student's active KKN placement details if they are a participant
+        $this->load->library("dataweb");
+        $iduser = $this->session->userdata("iduser");
+        $vCariPeserta = array(
+            array("cond" => "where", "fld" => "pm.id IS NOT NULL", "val" => null),
+            array("cond" => "where", "fld" => "u.id", "val" => $iduser),
+        );
+        $pesertaKKN = $this->dataweb->pesertakkn($vCariPeserta);
+        
+        $this->d['peserta_kkn'] = array();
+        if ($pesertaKKN['status']) {
+            $this->d['peserta_kkn'] = $pesertaKKN['db'];
+        }
+
         $this->load->view('app/index', $this->d);
     }
 
