@@ -143,8 +143,8 @@ class Profil extends CI_Controller
         $datalama = $this->dataweb->datamahasiswa($vCari);
         if ($datalama['status']) {
             $dtmhs = $datalama['db'][0];
-            if (file_exists($dtmhs['kartumhspic'])) {
-                unlink($dtmhs['kartumhspic']);
+            if (file_exists($dtmhs['kartumahasiswa'])) {
+                unlink($dtmhs['kartumahasiswa']);
             }
         }
         //end cari data mahasiswa 
