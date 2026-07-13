@@ -99,6 +99,39 @@ class Dashboard extends CI_Controller
             $this->d['peserta_kkn'] = $pesertaKKN['db'];
         }
 
+        // Fetch DPL status and active KKN groups
+        $this->db->from("pembimbing as p");
+        $this->db->join("hakakses as h", "h.id=p.idhakakses");
+        $this->db->where("h.iduser", $iduser);
+        $is_dpl = $this->db->get()->num_rows() > 0;
+        
+        $this->d['is_dpl'] = $is_dpl;
+        $this->d['dpl_kkn'] = array();
+        
+        if ($is_dpl) {
+            $this->db->from("kelompok as k");
+            $this->db->select("
+                k.id as idkelompok, k.namakelompok,
+                wd.desa, kec.kecamatan, kab.kabupaten,
+                kkn.tema, kkn.jenis, kkn.tahun, kkn.kknmulai, kkn.kknselesai
+            ");
+            $this->db->join("pembimbing_kkn as pk", "pk.id=k.idpembimbing_kkn", "inner");
+            $this->db->join("sk_pembimbing as sp", "sp.id=pk.idsk_pembimbing", "inner");
+            $this->db->join("kkn as kkn", "kkn.id=sp.idkkn", "inner");
+            $this->db->join("pembimbing as p", "p.id=pk.idpembimbing", "inner");
+            $this->db->join("hakakses as h", "h.id=p.idhakakses", "inner");
+            $this->db->join("user as u", "u.id=h.iduser", "inner");
+            $this->db->join("lokasi as l", "l.id=k.idlokasi", "left");
+            $this->db->join("wilayah_desa as wd", "wd.id=l.iddesa", "left");
+            $this->db->join("wilayah_kec as kec", "kec.id=wd.idkecamatan", "left");
+            $this->db->join("wilayah_kab as kab", "kab.id=kec.idkabupaten", "left");
+            $this->db->where("u.id", $iduser);
+            $dplQuery = $this->db->get();
+            if ($dplQuery->num_rows() > 0) {
+                $this->d['dpl_kkn'] = $dplQuery->result_array();
+            }
+        }
+
         $this->load->view('app/index', $this->d);
     }
 

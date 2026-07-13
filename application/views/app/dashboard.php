@@ -80,6 +80,70 @@
     </section>
 <?php } ?>
 
+<?php if (isset($is_dpl) && $is_dpl) { ?>
+    <section class="section mb-4">
+        <div class="card shadow-sm border">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+                <h4 class="card-title text-white mb-0" style="font-size: 1.1rem;"><i class="bi bi-person-workspace me-2"></i> Jadwal & Penugasan Bimbingan KKN (DPL)</h4>
+                <span class="badge bg-white text-primary font-semibold"><?= !empty($dpl_kkn) ? 'Aktif' : 'Non-Aktif' ?></span>
+            </div>
+            <div class="card-body pt-4">
+                <?php if (!empty($dpl_kkn)) { ?>
+                    <?php foreach ($dpl_kkn as $dk) { ?>
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="text-primary mb-3"><?= $dk['tema'] ?> (<?= $dk['jenis'] ?>)</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-geo-alt-fill text-danger fs-5 me-2"></i>
+                                            <div>
+                                                <span class="text-muted d-block" style="font-size: 0.8rem;">Lokasi / Posko</span>
+                                                <strong>Desa <?= !empty($dk['desa']) ? $dk['desa'] : 'Belum ditentukan' ?>, Kec. <?= !empty($dk['kecamatan']) ? $dk['kecamatan'] : 'Belum ditentukan' ?>, <?= !empty($dk['kabupaten']) ? $dk['kabupaten'] : 'Belum ditentukan' ?></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-people-fill text-info fs-5 me-2"></i>
+                                            <div>
+                                                <span class="text-muted d-block" style="font-size: 0.8rem;">Kelompok Bimbingan</span>
+                                                <strong><?= $dk['namakelompok'] ?></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-calendar-check-fill text-success fs-5 me-2"></i>
+                                            <div>
+                                                <span class="text-muted d-block" style="font-size: 0.8rem;">Pelaksanaan KKN</span>
+                                                <strong><?= date('d M Y', strtotime($dk['kknmulai'])) ?> - <?= date('d M Y', strtotime($dk['kknselesai'])) ?></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="d-grid gap-2">
+                                    <a href="<?= base_url('pembimbing/kelompok') ?>" class="btn btn-primary btn-sm"><i class="bi bi-people me-1"></i> Kelompok Bimbingan</a>
+                                    <a href="<?= base_url('pembimbing/aktifitas') ?>" class="btn btn-success btn-sm"><i class="bi bi-journal-text me-1"></i> Logbook Mahasiswa</a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    <?php } ?>
+                <?php } else { ?>
+                    <div class="text-center py-4">
+                        <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                        <h5 class="mt-3">Status: Tidak ada penugasan</h5>
+                        <p class="text-muted mb-0">Anda saat ini belum ditugaskan sebagai Dosen Pembimbing Lapangan (DPL) pada periode KKN aktif.</p>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </section>
+<?php } ?>
+
 <?php if (!empty($jadwal_aktif)) { ?>
     <section class="section mb-4">
         <div class="row">
