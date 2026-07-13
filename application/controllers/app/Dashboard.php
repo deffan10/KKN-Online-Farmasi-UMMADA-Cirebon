@@ -90,7 +90,6 @@ class Dashboard extends CI_Controller
         $this->load->library("dataweb");
         $iduser = $this->session->userdata("iduser");
         $vCariPeserta = array(
-            array("cond" => "where", "fld" => "pm.id IS NOT NULL", "val" => null),
             array("cond" => "where", "fld" => "u.id", "val" => $iduser),
         );
         $pesertaKKN = $this->dataweb->pesertakkn($vCariPeserta);

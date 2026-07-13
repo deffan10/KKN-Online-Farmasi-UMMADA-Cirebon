@@ -30,7 +30,7 @@
                                         <i class="bi bi-geo-alt-fill text-danger fs-5 me-2"></i>
                                         <div>
                                             <span class="text-muted d-block" style="font-size: 0.8rem;">Lokasi / Desa</span>
-                                            <strong><?= $pk['tempat'] ?> (Desa <?= $pk['desa'] ?>)</strong>
+                                            <strong><?= $pk['tempat'] ?><?= !empty($pk['desa']) ? ' (Desa ' . $pk['desa'] . ')' : ' (Belum ada desa)' ?></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                         <i class="bi bi-people-fill text-info fs-5 me-2"></i>
                                         <div>
                                             <span class="text-muted d-block" style="font-size: 0.8rem;">Kelompok</span>
-                                            <strong><?= $pk['namakelompok'] ?></strong>
+                                            <strong><?= !empty($pk['namakelompok']) ? $pk['namakelompok'] : 'Menunggu pembagian kelompok' ?></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                         <i class="bi bi-person-badge-fill text-warning fs-5 me-2"></i>
                                         <div>
                                             <span class="text-muted d-block" style="font-size: 0.8rem;">Jabatan / Peran</span>
-                                            <strong><?= $pk['jabatan'] ?></strong>
+                                            <strong><?= !empty($pk['jabatan']) ? $pk['jabatan'] : 'Menunggu penempatan' ?></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -65,8 +65,12 @@
                         </div>
                         <div class="col-md-4 text-md-end mt-3 mt-md-0">
                             <div class="d-grid gap-2">
-                                <a href="<?= base_url('dashboard/personal/' . $pk['idpenempatan']) ?>" class="btn btn-primary btn-sm"><i class="bi bi-journal-album me-1"></i> Dashboard Logbook</a>
-                                <a href="<?= base_url('mahasiswa/lkh/' . $pk['idpenempatan']) ?>" class="btn btn-success btn-sm"><i class="bi bi-book me-1"></i> Data Logbook</a>
+                                <?php if (!empty($pk['idpenempatan'])) { ?>
+                                    <a href="<?= base_url('dashboard/personal/' . $pk['idpenempatan']) ?>" class="btn btn-primary btn-sm"><i class="bi bi-journal-album me-1"></i> Dashboard Logbook</a>
+                                    <a href="<?= base_url('mahasiswa/lkh/' . $pk['idpenempatan']) ?>" class="btn btn-success btn-sm"><i class="bi bi-book me-1"></i> Data Logbook</a>
+                                <?php } else { ?>
+                                    <span class="text-muted italic" style="font-size: 0.85rem;"><i class="bi bi-info-circle me-1"></i> Logbook belum tersedia (Menunggu pembagian kelompok & posko)</span>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
