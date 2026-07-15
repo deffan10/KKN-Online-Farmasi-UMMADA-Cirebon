@@ -73,12 +73,12 @@
 
                                 if ($dp['idpendaftar']) {
                                     if ($dp['ispeserta']) {
-                                        echo "<div class='mt-2'><span class='badge bg-success' style='font-size:0.9rem;'><i class='bi bi-patch-check-fill me-1'></i> Status: Sudah Menjadi Peserta KKN</span></div>";
+                                        echo "<div class='mt-2'><span class='badge bg-success text-wrap' style='font-size:0.9rem; text-align: left;'><i class='bi bi-patch-check-fill me-1'></i> Status: Sudah Menjadi Peserta KKN</span></div>";
                                     } else {
-                                        echo "<div class='mt-2'><span class='badge bg-warning text-dark' style='font-size:0.9rem;'><i class='bi bi-hourglass-split me-1'></i> Status: Sudah Terdaftar, Menunggu Verifikasi Berkas</span></div>";
+                                        echo "<div class='mt-2'><span class='badge bg-warning text-dark text-wrap' style='font-size:0.9rem; text-align: left;'><i class='bi bi-hourglass-split me-1'></i> Status: Sudah Terdaftar, Menunggu Verifikasi Berkas</span></div>";
                                     }
                                 } else {
-                                    echo "<div class='mt-2'><span class='badge bg-secondary' style='font-size:0.9rem;'><i class='bi bi-info-circle-fill me-1'></i> Status: Belum Terdaftar</span></div>";
+                                    echo "<div class='mt-2'><span class='badge bg-secondary text-wrap' style='font-size:0.9rem; text-align: left;'><i class='bi bi-info-circle-fill me-1'></i> Status: Belum Terdaftar</span></div>";
                                 }
 
                                 ?>
