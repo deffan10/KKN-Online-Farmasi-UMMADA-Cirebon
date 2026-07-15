@@ -108,7 +108,8 @@ class Akun extends CI_Controller
                 $tmp['no'] = $no;
                 $tmp['nama'] = $dp['nama'] . "<div style='font-size:12px;'>" . $dp['nik'] . "</div>";
                 $tmp['grup'] = $grup;
-                $tmp['foto'] = "<div class='avatar avatar-xl'><img src='" . base_url($dp['path']) . "' ></div>";
+                $profilpic = !empty($dp['path']) ? $dp['path'] : (($dp['kel'] == 'P') ? 'assets/img/wanita.png' : 'assets/img/pria.png');
+                $tmp['foto'] = "<div class='avatar avatar-xl'><img src='" . base_url($profilpic) . "' ></div>";
                 $tmp['email'] = $dp['email'];
                 $tmp['namaasli'] = $dp['namaasli'];
                 $tmp['tmplahir'] = $dp['tmplahir'] . "<div style='font-size:12px;'>" . $dp['tgllahir'] . "</div>";

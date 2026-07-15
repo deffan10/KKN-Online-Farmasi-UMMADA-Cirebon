@@ -182,7 +182,8 @@ class Pendaftar extends CI_Controller
         foreach ($retVal['data'] as $index => $dp) {
             $no++;
             $tmp['no'] = $no;
-            $tmp['foto'] = "<div class='avatar avatar-xl'><img src='" . base_url($dp['profilpic']) . "' ></div>";
+            $profilpic = !empty($dp['profilpic']) ? $dp['profilpic'] : (($dp['kel'] == 'P') ? 'assets/img/wanita.png' : 'assets/img/pria.png');
+            $tmp['foto'] = "<div class='avatar avatar-xl'><img src='" . base_url($profilpic) . "' ></div>";
             $tmp['nama'] = $dp['nama'];
             $tmp['kel'] = $dp['kel'];
             $tmp['urut'] = $dp['urut'];
