@@ -92,7 +92,7 @@ class Penempatan extends CI_Controller
         $this->datatables->from("kelompok as k");
         $this->datatables->select("
 			'' as cek, '' as no, '' as aksi, '' as peserta,
-            k.id as idkelompok,k.keterangan,k.namakelompok,
+            k.id as idkelompok,k.keterangan,CAST(k.namakelompok AS UNSIGNED) as namakelompok,
             u.id as iduser, TRIM(CONCAT(u.glrdepan,' ',u.nama,' ',u.glrbelakang)) as dsnpembimbing, u.hp, u.nik, u.kel, u.path as profilpic, u.email,
             dsa.id as iddesa,
             kec.id as idkecamatan,

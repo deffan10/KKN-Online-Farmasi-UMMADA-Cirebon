@@ -55,7 +55,7 @@ class Mahasiswa extends CI_Controller
         $this->datatables->from("kelompok as kel");
         $this->datatables->select("
 			'' as no, '' as aksi, 
-            kel.id as idkelompok,kel.keterangan,kel.namakelompok,
+            kel.id as idkelompok,kel.keterangan,CAST(kel.namakelompok AS UNSIGNED) as namakelompok,
             u.id as iduser, TRIM(CONCAT(u.glrdepan,' ',u.nama,' ',u.glrbelakang)) as nama, u.hp, u.nik, u.kel, u.path as profilpic, u.email,
             mhs.nim,prd.prodi,
             dsa.id as iddesa,
