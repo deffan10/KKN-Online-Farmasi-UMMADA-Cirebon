@@ -205,6 +205,7 @@ class Pembimbinggrup extends CI_Controller
             if (!$dataSave['idpembimbing']) {
                 $dataGrup = array(
                     "idhakakses" => $dataSave['idhakakses'],
+                    "iduser" => $dataSave['iduser'],
                     "idgrup" => $dataSave['idgrup'],
                     "statuspeg" => $dataSave['statuspeg'],
                     "nip" => $dataSave['nip'],

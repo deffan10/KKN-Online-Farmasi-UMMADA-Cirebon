@@ -184,6 +184,7 @@ class Mahasiswagrup extends CI_Controller
                 if ($retVal['status']) {
                     $dataGrup = array(
                         "idhakakses" => $retVal['id'],
+                        "iduser" => $dataSave['iduser'],
                         "idgrup" => $dataSave['idgrup'],
                         "idprodi" => $dataSave['idprodi'],
                         "nim" => $dataSave['nim'],

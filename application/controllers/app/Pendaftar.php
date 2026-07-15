@@ -121,8 +121,8 @@ class Pendaftar extends CI_Controller
             prodi.urut,fak.id as idfakultas,
 		");
         $this->datatables->join("mahasiswa as m", "m.id=p.idmahasiswa", "left");
-        // $this->datatables->join("peserta as ps", "ps.idpendaftar=p.id", "left");
-        $this->datatables->join("user as u", "u.id=m.iduser", "left");
+        $this->datatables->join("hakakses as ha", "ha.id=m.idhakakses", "left");
+        $this->datatables->join("user as u", "u.id=ha.iduser", "left");
         $this->datatables->join("mst_prodi as prodi", "m.idprodi=prodi.id", "left");
         $this->datatables->join("mst_fakultas as fak", "fak.id=prodi.idfakultas", "left");
 
@@ -560,30 +560,6 @@ class Pendaftar extends CI_Controller
         if ($sql->num_rows() > 0) {
             $retVal = $sql->result_array();
         }
-        //debug($retVal);
         return $retVal;
-    }
-
-    public function debug_student()
-    {
-        $nim = "123123";
-        $m = $this->db->where('nim', $nim)->get('mahasiswa')->row_array();
-        echo "<h1>Oga Boga Debug Student NIM: $nim</h1>";
-        echo "<h3>MAHASISWA ROW:</h3><pre>";
-        print_r($m);
-        echo "</pre>";
-        if ($m) {
-            $ha = $this->db->where('id', $m['idhakakses'])->get('hakakses')->row_array();
-            echo "<h3>HAKAKSES ROW (ID " . $m['idhakakses'] . "):</h3><pre>";
-            print_r($ha);
-            echo "</pre>";
-            if ($ha) {
-                $u = $this->db->where('id', $ha['iduser'])->get('user')->row_array();
-                echo "<h3>USER ROW BY HAKAKSES iduser (" . $ha['iduser'] . "):</h3><pre>";
-                print_r($u);
-                echo "</pre>";
-            }
-        }
-        die();
     }
 }
