@@ -174,7 +174,7 @@ function loaddataform(db){
     console.log("loaddataform db row:", db);
     $("#upload_file").val(db['upload_file'] ? db['upload_file'].trim() : "").trigger("change");
     let uploadType = db['upload_type'] ? db['upload_type'].trim() : "";
-    if (uploadType === 'image') {
+    if (uploadType === 'image' || uploadType === 'gambar') {
         uploadType = 'img';
     }
     console.log("Setting upload_type to:", uploadType);

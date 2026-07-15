@@ -136,7 +136,7 @@ class Kkn extends CI_Controller
                     $max_size = $req->upload_size;
                 }
 
-                if ($upload_type == 'img' || $upload_type == 'image') {
+                if ($upload_type == 'img' || $upload_type == 'image' || $upload_type == 'gambar') {
                     $allowed_types = 'gif|jpg|png|jpeg';
                 } elseif ($upload_type == 'doc') {
                     $allowed_types = 'doc|docx';
