@@ -163,15 +163,15 @@
                             <div class="row text-center border-top pt-3">
                                 <div class="col-4 border-end">
                                     <h4 class="mb-0 font-extrabold" style="color: #4f46e5 !important; font-size: 1.4rem;"><?= $jadwal['pendaftar_count'] ?></h4>
-                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block; white-space: nowrap;">Pendaftar</span>
+                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block;">Pendaftar</span>
                                 </div>
                                 <div class="col-4 border-end">
                                     <h4 class="mb-0 font-extrabold" style="color: #16a34a !important; font-size: 1.4rem;"><?= $jadwal['lokasi_count'] ?></h4>
-                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block; white-space: nowrap;">Lokasi</span>
+                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block;">Lokasi</span>
                                 </div>
                                 <div class="col-4">
                                     <h4 class="mb-0 font-extrabold" style="color: #d97706 !important; font-size: 1.4rem;"><?= $jadwal['aktifitas_count'] ?></h4>
-                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block; white-space: nowrap;">Logbook (Kegiatan)</span>
+                                    <span class="text-muted" style="font-size: 0.72rem; font-weight: 600; display: block;">Logbook (Kegiatan)</span>
                                 </div>
                             </div>
                         </div>

@@ -1,3 +1,9 @@
+<style>
+    .jadwal-kkn, .jadwal-kkn * {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+</style>
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
