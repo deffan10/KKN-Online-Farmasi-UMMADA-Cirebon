@@ -145,10 +145,10 @@ class Pendaftar extends CI_Controller
 
         switch ($statumhs) {
             case 'peserta':
-                $this->datatables->where("t.id IS NOT NULL", null);
+                $this->datatables->where("t.id IS NOT NULL", null, false);
                 break;
             case 'pendaftar':
-                $this->datatables->where("t.id IS NULL", null);
+                $this->datatables->where("t.id IS NULL", null, false);
                 break;
         }
 
