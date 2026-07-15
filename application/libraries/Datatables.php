@@ -498,7 +498,7 @@ class Datatables
 				}
 
 				if (strpos($order_col, 'namakelompok') !== false) {
-					$this->ci->db->order_by("CAST(REPLACE(REPLACE(REPLACE(namakelompok, 'Kelompok', ''), 'kelompok', ''), ' ', '') AS UNSIGNED)", $key['dir']);
+					$this->ci->db->order_by("CAST(REPLACE(REPLACE(REPLACE(namakelompok, 'Kelompok', ''), 'kelompok', ''), ' ', '') AS UNSIGNED) " . $key['dir'], '', FALSE);
 				} else {
 					$this->ci->db->order_by($order_col, $key['dir']);
 				}
