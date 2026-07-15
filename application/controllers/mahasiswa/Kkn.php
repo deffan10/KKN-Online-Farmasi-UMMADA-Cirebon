@@ -136,7 +136,7 @@ class Kkn extends CI_Controller
                     $max_size = $req->upload_size;
                 }
 
-                if ($upload_type == 'img') {
+                if ($upload_type == 'img' || $upload_type == 'image') {
                     $allowed_types = 'gif|jpg|png|jpeg';
                 } elseif ($upload_type == 'doc') {
                     $allowed_types = 'doc|docx';
@@ -167,9 +167,26 @@ class Kkn extends CI_Controller
                     'path' => $tmppath . $file_info['file_name'],
                     'fileinfo' => json_encode($file_info),
                 );
-                $retVal = $this->Model_data->save($dataSave, "berkas_administrasi", "berkas upload", true);
+
+                // Check if already uploaded
+                $existing = $this->db->where('idpendaftar', $idpendaftar)
+                                     ->where('idadministrasi', $idadministrasi)
+                                     ->get('berkas_administrasi')
+                                     ->row();
+
+                if ($existing) {
+                    if (file_exists("./" . $existing->path)) {
+                        @unlink("./" . $existing->path);
+                    }
+                    $kond = array(
+                        array("where", "id", $existing->id),
+                    );
+                    $retVal = $this->Model_data->update($kond, $dataSave, "berkas_administrasi", "berkas upload", true);
+                } else {
+                    $retVal = $this->Model_data->save($dataSave, "berkas_administrasi", "berkas upload", true);
+                }
             } else {
-                $retVal['pesan'] = ["Tidak ada lampiran file yang akan diupload"];
+                $retVal['pesan'] = array($this->upload->display_errors('', ''));
                 $retVal['status'] = false;
             }
         }

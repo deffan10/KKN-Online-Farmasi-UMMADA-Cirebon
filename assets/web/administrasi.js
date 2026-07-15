@@ -172,7 +172,11 @@ function loaddataform(db){
     resetform();
     $("#idadministrasi").val(db['id']);
     $("#upload_file").val(db['upload_file']).trigger("change");
-    $("#upload_type").val(db['upload_type']).trigger("change");
+    let uploadType = db['upload_type'];
+    if (uploadType === 'image') {
+        uploadType = 'img';
+    }
+    $("#upload_type").val(uploadType).trigger("change");
     $("#upload_size").val(db['upload_size']).trigger("change");
     $("#namaadministrasi").val(db['namaadministrasi']);
     $("#keterangan").val(db['keterangan']); 
