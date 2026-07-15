@@ -492,11 +492,15 @@ class Datatables
 			foreach ($this->ci->input->post('order') as $key) {
 
 				if ($this->check_cType()) {
-
-					$this->ci->db->order_by($data[$key['column']]['data'], $key['dir']);
+					$order_col = $data[$key['column']]['data'];
 				} else {
+					$order_col = $this->columns[$key['column']];
+				}
 
-					$this->ci->db->order_by($this->columns[$key['column']], $key['dir']);
+				if (strpos($order_col, 'namakelompok') !== false) {
+					$this->ci->db->order_by("CAST(REPLACE(REPLACE(REPLACE(namakelompok, 'Kelompok', ''), 'kelompok', ''), ' ', '') AS UNSIGNED)", $key['dir']);
+				} else {
+					$this->ci->db->order_by($order_col, $key['dir']);
 				}
 			}
 		}

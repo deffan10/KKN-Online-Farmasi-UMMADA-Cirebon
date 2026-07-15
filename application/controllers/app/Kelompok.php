@@ -98,7 +98,7 @@ class Kelompok extends CI_Controller
         $this->datatables->from("kelompok as k");
         $this->datatables->select("
 			'' as cek, '' as no, '' as aksi, 
-            k.id as idkelompok,k.keterangan,CAST(k.namakelompok AS UNSIGNED) as namakelompok,
+            k.id as idkelompok,k.keterangan,k.namakelompok,
             u.id as iduser, TRIM(CONCAT(u.glrdepan,' ',u.nama,' ',u.glrbelakang)) as nama, u.hp, u.nik, u.kel, u.path  as profilpic, u.email,
             d.id as iddesa,d.desa, 
             kec.id as idkec,kec.kecamatan,

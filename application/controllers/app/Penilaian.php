@@ -62,7 +62,7 @@ class Penilaian extends CI_Controller
         $this->datatables->from("penempatan as pm");
         $this->datatables->select("
 			'' as no, '' as aksi, 
-            kel.id as idkelompok,kel.keterangan,CAST(kel.namakelompok AS UNSIGNED) as namakelompok,
+            kel.id as idkelompok,kel.keterangan,kel.namakelompok,
             u.id as iduser, TRIM(CONCAT(u.glrdepan,' ',u.nama,' ',u.glrbelakang)) as nama, u.hp, u.nik, u.kel, u.path as profilpic, u.email,
             dpl.id as dpl_iduser, TRIM(CONCAT(dpl.glrdepan,' ',dpl.nama,' ',dpl.glrbelakang)) as dpl_nama, dpl.hp as dpl_hp, dpl.nik as dpl_nik, dpl.kel as dpl_kel, dpl.path as dpl_profilpic, dpl.email as dpl_email,
             mhs.nim,prd.prodi,

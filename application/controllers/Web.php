@@ -327,7 +327,7 @@ class Web extends CI_Controller
             k.kknmulai,k.kknselesai,
             p.id as idpendaftar, k.id as idkkn, jb.jabatan,jb.id as idjabatan,
             pm.idkelompok,pm.id as idpenempatan, IF(pm.id IS NULL,0,1) as statuspenempatan,
-            CAST(kl.namakelompok AS UNSIGNED) as namakelompok, kec.kecamatan, kab.kabupaten, prov.provinsi,
+            kl.namakelompok, kec.kecamatan, kab.kabupaten, prov.provinsi,
             dsa.id as iddesa,dsa.desa,l.lastlogin,
             IF(DATE_ADD(NOW(), INTERVAL 8 HOUR)>=k.bagikelompok,'terbuka','tertutup') as ketpublishkelompok,
 		");
@@ -514,7 +514,7 @@ class Web extends CI_Controller
         $this->datatables->from("pembimbing_kkn as pk");
         $this->datatables->select("
 			'' as cek, '' as no, '' as aksi, 
-            k.id as idkelompok,k.keterangan,CAST(k.namakelompok AS UNSIGNED) as namakelompok,
+            k.id as idkelompok,k.keterangan,k.namakelompok,
             u.id as iduser, TRIM(CONCAT(u.glrdepan,' ',u.nama,' ',u.glrbelakang)) as nama, u.hp, u.nik, u.kel, u.path as profilpic, u.email,
             dsa.id as iddesa,
             kec.id as idkecamatan,
