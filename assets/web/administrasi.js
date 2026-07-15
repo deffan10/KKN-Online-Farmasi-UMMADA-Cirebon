@@ -171,13 +171,17 @@ $(document).on("click", ".editRow", function(e) {
 function loaddataform(db){
     resetform();
     $("#idadministrasi").val(db['id']);
-    $("#upload_file").val(db['upload_file']).trigger("change");
-    let uploadType = db['upload_type'];
+    console.log("loaddataform db row:", db);
+    $("#upload_file").val(db['upload_file'] ? db['upload_file'].trim() : "").trigger("change");
+    let uploadType = db['upload_type'] ? db['upload_type'].trim() : "";
     if (uploadType === 'image') {
         uploadType = 'img';
     }
+    console.log("Setting upload_type to:", uploadType);
     $("#upload_type").val(uploadType).trigger("change");
-    $("#upload_size").val(db['upload_size']).trigger("change");
+    let uploadSize = db['upload_size'] ? db['upload_size'].trim() : "";
+    console.log("Setting upload_size to:", uploadSize);
+    $("#upload_size").val(uploadSize).trigger("change");
     $("#namaadministrasi").val(db['namaadministrasi']);
     $("#keterangan").val(db['keterangan']); 
 }
