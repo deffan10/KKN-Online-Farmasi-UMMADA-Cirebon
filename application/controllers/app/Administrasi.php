@@ -159,6 +159,10 @@ class Administrasi extends CI_Controller
             $id = $dataSave['idadministrasi'];
             unset($dataSave['idadministrasi']);
 
+            if (isset($dataSave['upload_type']) && $dataSave['upload_type'] == 'img') {
+                $dataSave['upload_type'] = 'image';
+            }
+
             if ($id == "" && akses_akun("insert", $this->otentikasi)->status) {
                 $retVal = $this->Model_data->save($dataSave, $this->d['tbName'], null, true);
             } elseif ($id <> "" && akses_akun("update", $this->otentikasi, $this->d['tbName'], $id)->status) {
