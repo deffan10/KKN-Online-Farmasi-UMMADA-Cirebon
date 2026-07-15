@@ -573,16 +573,16 @@ class Pendaftar extends CI_Controller
         print_r($m);
         echo "</pre>";
         if ($m) {
-            $u = $this->db->where('id', $m['iduser'])->get('user')->row_array();
-            echo "<h3>USER ROW:</h3><pre>";
-            print_r($u);
+            $ha = $this->db->where('id', $m['idhakakses'])->get('hakakses')->row_array();
+            echo "<h3>HAKAKSES ROW (ID " . $m['idhakakses'] . "):</h3><pre>";
+            print_r($ha);
             echo "</pre>";
-            
-            // Check if there is another user with same NIM or name
-            $u2 = $this->db->like('nama', $m['nama'])->get('user')->result_array();
-            echo "<h3>USERS WITH SIMILAR NAME:</h3><pre>";
-            print_r($u2);
-            echo "</pre>";
+            if ($ha) {
+                $u = $this->db->where('id', $ha['iduser'])->get('user')->row_array();
+                echo "<h3>USER ROW BY HAKAKSES iduser (" . $ha['iduser'] . "):</h3><pre>";
+                print_r($u);
+                echo "</pre>";
+            }
         }
         die();
     }
