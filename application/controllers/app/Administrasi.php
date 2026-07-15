@@ -169,9 +169,15 @@ class Administrasi extends CI_Controller
             } else {
                 $retVal['pesan'] = "Maaf, akses ditolak";
             }
+            $retVal['debug_save'] = $dataSave;
+            @file_put_contents('debug_save.txt', json_encode($dataSave));
         } else {
             $retVal['pesan'] = $this->form_validation->error_array();
             $retVal['status'] = false;
+            @file_put_contents('debug_save_error.txt', json_encode(array(
+                'post' => $this->input->post(),
+                'errors' => $this->form_validation->error_array()
+            )));
         }
         die(json_encode($retVal));
     }
