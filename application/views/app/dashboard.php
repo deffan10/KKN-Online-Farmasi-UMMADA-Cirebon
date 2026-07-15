@@ -126,7 +126,7 @@
                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                 <div class="d-grid gap-2">
                                     <a href="<?= base_url('pembimbing/kelompok') ?>" class="btn btn-primary btn-sm"><i class="bi bi-people me-1"></i> Kelompok Bimbingan</a>
-                                    <a href="<?= base_url('pembimbing/aktifitas') ?>" class="btn btn-success btn-sm"><i class="bi bi-journal-text me-1"></i> Logbook Mahasiswa</a>
+                                    <a href="<?= base_url('pembimbing/aktifitas/' . $dk['idkelompok']) ?>" class="btn btn-success btn-sm"><i class="bi bi-journal-text me-1"></i> Logbook Mahasiswa</a>
                                 </div>
                             </div>
                         </div>

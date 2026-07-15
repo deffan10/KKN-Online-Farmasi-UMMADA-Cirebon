@@ -23,8 +23,11 @@ class Aktifitas extends CI_Controller
         $this->otentikasi = otentikasi($this->d);
     }
 
-    public function index($idkelompok)
+    public function index($idkelompok = null)
     {
+        if (empty($idkelompok)) {
+            redirect('pembimbing/kelompok');
+        }
         $this->load->library("select2");
         $this->load->library('Dataweb');
         $this->d['web']['title'] = $this->d['web']['title'] . " " . $this->config->item("app_singkatan");
