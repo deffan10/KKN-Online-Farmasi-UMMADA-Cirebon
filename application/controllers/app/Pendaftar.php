@@ -152,8 +152,21 @@ class Pendaftar extends CI_Controller
                 break;
         }
 
-        $retVal = json_decode($this->datatables->generate(), true);
-        //echo $this->db->last_query();
+        $retValRaw = $this->datatables->generate();
+        $retVal = json_decode($retValRaw, true);
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($retVal) || !isset($retVal['data'])) {
+            $error = $this->db->error();
+            $last_query = $this->db->last_query();
+            $res = array(
+                "status" => false,
+                "error" => "Caveman Debug: Invalid JSON " . json_last_error_msg(),
+                "raw_response" => $retValRaw,
+                "last_query" => $last_query,
+                "db_error" => $error,
+                "data" => array()
+            );
+            die(json_encode($res));
+        }
         $data = array();
         $no = 0;
 
