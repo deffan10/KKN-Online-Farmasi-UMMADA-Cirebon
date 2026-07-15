@@ -563,4 +563,27 @@ class Pendaftar extends CI_Controller
         //debug($retVal);
         return $retVal;
     }
+
+    public function debug_student()
+    {
+        $nim = "123123";
+        $m = $this->db->where('nim', $nim)->get('mahasiswa')->row_array();
+        echo "<h1>Oga Boga Debug Student NIM: $nim</h1>";
+        echo "<h3>MAHASISWA ROW:</h3><pre>";
+        print_r($m);
+        echo "</pre>";
+        if ($m) {
+            $u = $this->db->where('id', $m['iduser'])->get('user')->row_array();
+            echo "<h3>USER ROW:</h3><pre>";
+            print_r($u);
+            echo "</pre>";
+            
+            // Check if there is another user with same NIM or name
+            $u2 = $this->db->like('nama', $m['nama'])->get('user')->result_array();
+            echo "<h3>USERS WITH SIMILAR NAME:</h3><pre>";
+            print_r($u2);
+            echo "</pre>";
+        }
+        die();
+    }
 }
