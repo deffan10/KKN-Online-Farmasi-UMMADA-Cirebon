@@ -886,8 +886,7 @@ class Dashboard extends CI_Controller
         $retVal = array("status" => false, "pesan" => "");
         allowheader();
         if ($this->session->userdata('iduser')) {
-            $sql = "UPDATE notifikasi SET status='1' WHERE iduser='" . $this->session->userdata('iduser') . "'";
-            $ex = $this->db->query($sql);
+            $ex = $this->db->query("UPDATE notifikasi SET status='1' WHERE iduser = ?", array($this->session->userdata('iduser')));
             if ($ex)
                 $retVal = array("status" => true, "pesan" => "berhasil update");
         }
@@ -913,8 +912,7 @@ class Dashboard extends CI_Controller
 
             //update status read untuk notifikasi
             if ($dp['iduser'] == $this->session->userdata('iduser')) {
-                $sql = "UPDATE notifikasi SET status='1' WHERE idaktifitas='" . $dp['idaktifitas'] . "'";
-                $this->db->query($sql);
+                $this->db->query("UPDATE notifikasi SET status='1' WHERE idaktifitas = ?", array($dp['idaktifitas']));
             }
 
             $ketkelompok = ($dp['ketpublishkelompok'] == "terbuka") ? " - " . $dp['jabatan'] . " <br> <a href='" . base_url("dashboard/kelompok/" . $dp['idkelompok']) . "'>Kelompok " . $dp['namakelompok'] . " (" . $dp['desa'] . ")</a>" : "";

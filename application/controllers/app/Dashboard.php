@@ -184,7 +184,7 @@ class Dashboard extends CI_Controller
             loadPlugins("notify"),
             loadPlugins("loading"),
         );
-        $identitas = $this->db->query("SELECT * FROM user WHERE id='" . $this->session->userdata('iduser') . "'");
+        $identitas = $this->db->query("SELECT * FROM user WHERE id = ?", array($this->session->userdata('iduser')));
         $this->d['identitas'] = $identitas->row();
         $this->load->view('app/index', $this->d);
     }
