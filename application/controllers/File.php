@@ -123,8 +123,9 @@ class File extends CI_Controller
                         array("where", "idhakakses", $idhakakses),
                     );
 
+                $colName = ($table == 'user') ? 'path' : $berkas;
                 $dataSave = array(
-                    'path' => $tmppath . $file_info['file_name'],
+                    $colName => $tmppath . $file_info['file_name'],
                     'fileinfo' => json_encode($file_info),
                 );
                 //debug($kond, 0);
@@ -137,7 +138,7 @@ class File extends CI_Controller
                 }
                 $retVal = $this->Model_data->update($kond, $dataSave, $table, "upload dokumen", true);
             } else {
-                $retVal['pesan'] = ["Tidak ada lampiran file yang akan diupload"];
+                $retVal['pesan'] = array($this->upload->display_errors('', ''));
                 $retVal['status'] = false;
             }
         }
