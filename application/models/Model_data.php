@@ -299,7 +299,22 @@ class Model_data extends CI_Model
 		$this->db->db_debug = FALSE;
 
 		@file_put_contents('debug_delete.txt', "Deleting iduser: $iduser\n", FILE_APPEND);
+		
+		// 1. Try to find mahasiswa profile by iduser directly
 		$mahasiswa = $this->db->get_where('mahasiswa', array('iduser' => $iduser))->row();
+		
+		// 2. Fallback to find by idhakakses if iduser is NULL/mismatched
+		if (!$mahasiswa) {
+			$hakakses_list = $this->db->get_where('hakakses', array('iduser' => $iduser, 'idgrup' => 4))->result();
+			foreach ($hakakses_list as $h) {
+				$mahasiswa = $this->db->get_where('mahasiswa', array('idhakakses' => $h->id))->row();
+				if ($mahasiswa) {
+					@file_put_contents('debug_delete.txt', "Found mahasiswa profile via hakakses ID: " . $h->id . "\n", FILE_APPEND);
+					break;
+				}
+			}
+		}
+
 		if ($mahasiswa) {
 			$idmahasiswa = $mahasiswa->id;
 			@file_put_contents('debug_delete.txt', "Found idmahasiswa: $idmahasiswa\n", FILE_APPEND);
@@ -315,7 +330,7 @@ class Model_data extends CI_Model
 					return $status;
 				}
 			}
-			$this->db->where('iduser', $iduser)->delete('mahasiswa');
+			$this->db->where('id', $idmahasiswa)->delete('mahasiswa');
 			@file_put_contents('debug_delete.txt', "Delete mahasiswa error: " . json_encode($this->db->error()) . "\n", FILE_APPEND);
 		} else {
 			@file_put_contents('debug_delete.txt', "No mahasiswa profile found for iduser: $iduser\n", FILE_APPEND);
@@ -337,7 +352,20 @@ class Model_data extends CI_Model
 		$db_debug_original = $this->db->db_debug;
 		$this->db->db_debug = FALSE;
 
+		// 1. Try to find DPL profile by iduser directly
 		$pembimbing = $this->db->get_where('pembimbing', array('iduser' => $iduser))->row();
+		
+		// 2. Fallback to find by idhakakses if iduser is NULL/mismatched
+		if (!$pembimbing) {
+			$hakakses_list = $this->db->get_where('hakakses', array('iduser' => $iduser, 'idgrup' => 3))->result();
+			foreach ($hakakses_list as $h) {
+				$pembimbing = $this->db->get_where('pembimbing', array('idhakakses' => $h->id))->row();
+				if ($pembimbing) {
+					break;
+				}
+			}
+		}
+
 		if ($pembimbing) {
 			$idpembimbing = $pembimbing->id;
 			
@@ -365,6 +393,12 @@ class Model_data extends CI_Model
 		$this->db->db_debug = FALSE;
 
 		$this->db->where('iduser', $iduser)->delete('admin');
+		
+		$hakakses_list = $this->db->get_where('hakakses', array('iduser' => $iduser, 'idgrup' => 1))->result();
+		foreach ($hakakses_list as $h) {
+			$this->db->where('idhakakses', $h->id)->delete('admin');
+		}
+
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 1))->delete('hakakses');
 
 		$db_error = $this->db->error();
@@ -381,6 +415,17 @@ class Model_data extends CI_Model
 		$db_debug_original = $this->db->db_debug;
 		$this->db->db_debug = FALSE;
 
+		// 1. Sweep any orphaned KKN registrations owned by this user
+		$orphaned_pendaftar = $this->db->get_where('pendaftar', array('owned' => $iduser))->result();
+		foreach ($orphaned_pendaftar as $pendaftar) {
+			$status = $this->delete_pendaftar_data($pendaftar->id);
+			if ($status !== true) {
+				$this->db->db_debug = $db_debug_original;
+				return $status;
+			}
+		}
+
+		// 2. Cascade role-specific profiles
 		$status = $this->delete_mahasiswa_data($iduser);
 		if ($status !== true) {
 			$this->db->db_debug = $db_debug_original;
