@@ -142,11 +142,11 @@ class Mahasiswagrup extends CI_Controller
             if ($dp != "") {
                 $run = akses_akun("delete", $this->otentikasi, $this->d['tbName'], $dp);
                 if ($run->status) {
-                    $kond = array(
-                        array("where", "id", $dp),
-                    );
-                    $runquery = $this->Model_data->delete($kond, $this->d['tbName'], null, true);
-                    $retVal['pesan'][$i] = $runquery['pesan'];
+                    $hakakses = $this->db->get_where('hakakses', array('id' => $dp))->row();
+                    if ($hakakses) {
+                        $this->Model_data->delete_mahasiswa_data($hakakses->iduser);
+                    }
+                    $retVal['pesan'][$i] = array("Hapus data mahasiswa berhasil dilakukan");
                     $retVal['status'] = true;
                 }
             }

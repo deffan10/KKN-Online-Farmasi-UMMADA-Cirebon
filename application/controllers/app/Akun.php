@@ -153,16 +153,9 @@ class Akun extends CI_Controller
 			
 			$run = akses_akun("delete", $this->otentikasi, $this->d['tbName'], $dp);
             if ($run->status) {
-                $this->db->where('iduser', $dp)->delete('hakakses');
-                $kond = array(
-                    array("where", "id", $dp),
-                );
-                $runquery = $this->Model_data->delete($kond, $this->d['tbName'], null, true);
-                $retVal['pesan'][$i] = $runquery['pesan'];
-                #$retVal['status'] = true;
-				if ($runquery['status']) {
-                    $anySuccess = true; // Status sukses hanya jika query delete berhasil
-                }
+                $this->Model_data->delete_user_data($dp);
+                $retVal['pesan'][$i] = array("Hapus data akun berhasil dilakukan");
+                $anySuccess = true;
             } else {
                 $retVal['pesan'][$i] = "Akses ditolak untuk menghapus data ini.";
             }

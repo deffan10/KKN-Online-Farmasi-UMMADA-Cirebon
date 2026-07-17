@@ -253,6 +253,79 @@ class Model_data extends CI_Model
 			return;
 		}
 	}
+
+	public function delete_mahasiswa_data($iduser)
+	{
+		$mahasiswa = $this->db->get_where('mahasiswa', array('iduser' => $iduser))->row();
+		if ($mahasiswa) {
+			$idmahasiswa = $mahasiswa->id;
+			
+			$pendaftar_list = $this->db->get_where('pendaftar', array('idmahasiswa' => $idmahasiswa))->result();
+			foreach ($pendaftar_list as $pendaftar) {
+				$idpendaftar = $pendaftar->id;
+				
+				$peserta_list = $this->db->get_where('peserta', array('idpendaftar' => $idpendaftar))->result();
+				foreach ($peserta_list as $peserta) {
+					$idpeserta = $peserta->id;
+					
+					$penempatan_list = $this->db->get_where('penempatan', array('idpeserta' => $idpeserta))->result();
+					foreach ($penempatan_list as $penempatan) {
+						$idpenempatan = $penempatan->id;
+						
+						$aktifitas_list = $this->db->get_where('aktifitas', array('idpenempatan' => $idpenempatan))->result();
+						foreach ($aktifitas_list as $aktifitas) {
+							$idaktifitas = $aktifitas->id;
+							
+							$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_komentar');
+							$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_upload');
+						}
+						$this->db->where('idpenempatan', $idpenempatan)->delete('aktifitas');
+						$this->db->where('idpenempatan', $idpenempatan)->delete('nilai');
+						$this->db->where('idpenempatan', $idpenempatan)->delete('output_penempatan');
+					}
+					$this->db->where('idpeserta', $idpeserta)->delete('penempatan');
+				}
+				$this->db->where('idpendaftar', $idpendaftar)->delete('peserta');
+				$this->db->where('idpendaftar', $idpendaftar)->delete('verifikasi');
+			}
+			$this->db->where('idmahasiswa', $idmahasiswa)->delete('pendaftar');
+			$this->db->where('iduser', $iduser)->delete('mahasiswa');
+		}
+		
+		$this->db->where(array('iduser' => $iduser, 'idgrup' => 4))->delete('hakakses');
+		return true;
+	}
+
+	public function delete_pembimbing_data($iduser)
+	{
+		$pembimbing = $this->db->get_where('pembimbing_kkn', array('iduser' => $iduser))->row();
+		if ($pembimbing) {
+			$idpembimbing = $pembimbing->id;
+			$this->db->where('idpembimbing_kkn', $idpembimbing)->update('kelompok', array('idpembimbing_kkn' => null));
+			$this->db->where('iduser', $iduser)->delete('pembimbing_kkn');
+		}
+		$this->db->where(array('iduser' => $iduser, 'idgrup' => 3))->delete('hakakses');
+		return true;
+	}
+
+	public function delete_admin_role_data($iduser)
+	{
+		$this->db->where('iduser', $iduser)->delete('admin');
+		$this->db->where(array('iduser' => $iduser, 'idgrup' => 1))->delete('hakakses');
+		return true;
+	}
+
+	public function delete_user_data($iduser)
+	{
+		$this->delete_mahasiswa_data($iduser);
+		$this->delete_pembimbing_data($iduser);
+		$this->delete_admin_role_data($iduser);
+		
+		$this->db->where('iduser', $iduser)->delete('hakakses');
+		$this->db->where('iduser', $iduser)->delete('aktifitas_komentar');
+		$this->db->where('id', $iduser)->delete('user');
+		return true;
+	}
 }
 
 /* End of file model_data.php */
