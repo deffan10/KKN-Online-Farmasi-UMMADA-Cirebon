@@ -286,7 +286,7 @@ class Model_data extends CI_Model
 					$this->db->where('idpeserta', $idpeserta)->delete('penempatan');
 				}
 				$this->db->where('idpendaftar', $idpendaftar)->delete('peserta');
-				$this->db->where('idpendaftar', $idpendaftar)->delete('verifikasi');
+				$this->db->where('idpendaftar', $idpendaftar)->delete('berkas_administrasi');
 			}
 			$this->db->where('idmahasiswa', $idmahasiswa)->delete('pendaftar');
 			$this->db->where('iduser', $iduser)->delete('mahasiswa');
@@ -298,11 +298,16 @@ class Model_data extends CI_Model
 
 	public function delete_pembimbing_data($iduser)
 	{
-		$pembimbing = $this->db->get_where('pembimbing_kkn', array('iduser' => $iduser))->row();
+		$pembimbing = $this->db->get_where('pembimbing', array('iduser' => $iduser))->row();
 		if ($pembimbing) {
 			$idpembimbing = $pembimbing->id;
-			$this->db->where('idpembimbing_kkn', $idpembimbing)->update('kelompok', array('idpembimbing_kkn' => null));
-			$this->db->where('iduser', $iduser)->delete('pembimbing_kkn');
+			
+			$pkkn_list = $this->db->get_where('pembimbing_kkn', array('idpembimbing' => $idpembimbing))->result();
+			foreach ($pkkn_list as $pkkn) {
+				$this->db->where('idpembimbing_kkn', $pkkn->id)->update('kelompok', array('idpembimbing_kkn' => null));
+				$this->db->where('id', $pkkn->id)->delete('pembimbing_kkn');
+			}
+			$this->db->where('id', $idpembimbing)->delete('pembimbing');
 		}
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 3))->delete('hakakses');
 		return true;
@@ -321,6 +326,7 @@ class Model_data extends CI_Model
 		$this->delete_pembimbing_data($iduser);
 		$this->delete_admin_role_data($iduser);
 		
+		$this->db->where('iduser', $iduser)->update('berita', array('iduser' => null));
 		$this->db->where('iduser', $iduser)->delete('hakakses');
 		$this->db->where('iduser', $iduser)->delete('aktifitas_komentar');
 		$this->db->where('id', $iduser)->delete('user');
