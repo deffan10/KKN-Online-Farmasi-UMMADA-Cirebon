@@ -298,19 +298,27 @@ class Model_data extends CI_Model
 		$db_debug_original = $this->db->db_debug;
 		$this->db->db_debug = FALSE;
 
+		@file_put_contents('debug_delete.txt', "Deleting iduser: $iduser\n", FILE_APPEND);
 		$mahasiswa = $this->db->get_where('mahasiswa', array('iduser' => $iduser))->row();
 		if ($mahasiswa) {
 			$idmahasiswa = $mahasiswa->id;
+			@file_put_contents('debug_delete.txt', "Found idmahasiswa: $idmahasiswa\n", FILE_APPEND);
 			
 			$pendaftar_list = $this->db->get_where('pendaftar', array('idmahasiswa' => $idmahasiswa))->result();
+			@file_put_contents('debug_delete.txt', "Found pendaftar count: " . count($pendaftar_list) . "\n", FILE_APPEND);
 			foreach ($pendaftar_list as $pendaftar) {
+				@file_put_contents('debug_delete.txt', "Deleting pendaftar id: " . $pendaftar->id . "\n", FILE_APPEND);
 				$status = $this->delete_pendaftar_data($pendaftar->id);
+				@file_put_contents('debug_delete.txt', "Delete pendaftar status: " . json_encode($status) . "\n", FILE_APPEND);
 				if ($status !== true) {
 					$this->db->db_debug = $db_debug_original;
 					return $status;
 				}
 			}
 			$this->db->where('iduser', $iduser)->delete('mahasiswa');
+			@file_put_contents('debug_delete.txt', "Delete mahasiswa error: " . json_encode($this->db->error()) . "\n", FILE_APPEND);
+		} else {
+			@file_put_contents('debug_delete.txt', "No mahasiswa profile found for iduser: $iduser\n", FILE_APPEND);
 		}
 		
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 4))->delete('hakakses');
