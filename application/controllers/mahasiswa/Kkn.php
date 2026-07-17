@@ -207,11 +207,14 @@ class Kkn extends CI_Controller
             $i = 0;
             $akses = akses_akun("delete", $this->otentikasi, "pendaftar", $id);
             if ($akses->status) {
-                $kond = array(
-                    array("where", "id", $id),
-                );
-                $retVal = $this->Model_data->delete($kond, "pendaftar", null, true);
-                $retVal['pesan'] = $retVal['pesan'];
+                $status = $this->Model_data->delete_pendaftar_data($id);
+                if ($status === true) {
+                    $retVal['status'] = true;
+                    $retVal['pesan'] = array("Pembatalan pendaftaran berhasil dilakukan");
+                } else {
+                    $retVal['status'] = false;
+                    $retVal['pesan'] = array("Gagal, Error Code " . $status['code'] . " " . $status['message']);
+                }
             } else {
                 $retVal['pesan'] = "akses ditolak";
             }

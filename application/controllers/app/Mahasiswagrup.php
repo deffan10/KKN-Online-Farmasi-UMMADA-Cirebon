@@ -144,10 +144,16 @@ class Mahasiswagrup extends CI_Controller
                 if ($run->status) {
                     $hakakses = $this->db->get_where('hakakses', array('id' => $dp))->row();
                     if ($hakakses) {
-                        $this->Model_data->delete_mahasiswa_data($hakakses->iduser);
+                        $status = $this->Model_data->delete_mahasiswa_data($hakakses->iduser);
+                        if ($status === true) {
+                            $retVal['pesan'][$i] = array("Hapus data mahasiswa berhasil dilakukan");
+                            $retVal['status'] = true;
+                        } else {
+                            $retVal['pesan'][$i] = array("Gagal, Error Code " . $status['code'] . " " . $status['message']);
+                        }
+                    } else {
+                        $retVal['pesan'][$i] = array("Data tidak ditemukan");
                     }
-                    $retVal['pesan'][$i] = array("Hapus data mahasiswa berhasil dilakukan");
-                    $retVal['status'] = true;
                 }
             }
         }

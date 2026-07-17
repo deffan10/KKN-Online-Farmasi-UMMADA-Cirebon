@@ -254,50 +254,81 @@ class Model_data extends CI_Model
 		}
 	}
 
+	public function delete_pendaftar_data($idpendaftar)
+	{
+		$db_debug_original = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+
+		$peserta_list = $this->db->get_where('peserta', array('idpendaftar' => $idpendaftar))->result();
+		foreach ($peserta_list as $peserta) {
+			$idpeserta = $peserta->id;
+			
+			$penempatan_list = $this->db->get_where('penempatan', array('idpeserta' => $idpeserta))->result();
+			foreach ($penempatan_list as $penempatan) {
+				$idpenempatan = $penempatan->id;
+				
+				$aktifitas_list = $this->db->get_where('aktifitas', array('idpenempatan' => $idpenempatan))->result();
+				foreach ($aktifitas_list as $aktifitas) {
+					$idaktifitas = $aktifitas->id;
+					
+					$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_komentar');
+					$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_upload');
+				}
+				$this->db->where('idpenempatan', $idpenempatan)->delete('aktifitas');
+				$this->db->where('idpenempatan', $idpenempatan)->delete('nilai');
+				$this->db->where('idpenempatan', $idpenempatan)->delete('output_penempatan');
+			}
+			$this->db->where('idpeserta', $idpeserta)->delete('penempatan');
+		}
+		$this->db->where('idpendaftar', $idpendaftar)->delete('peserta');
+		$this->db->where('idpendaftar', $idpendaftar)->delete('berkas_administrasi');
+		$this->db->where('id', $idpendaftar)->delete('pendaftar');
+
+		$db_error = $this->db->error();
+		$this->db->db_debug = $db_debug_original;
+
+		if ($db_error['code'] !== 0) {
+			return $db_error;
+		}
+		return true;
+	}
+
 	public function delete_mahasiswa_data($iduser)
 	{
+		$db_debug_original = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+
 		$mahasiswa = $this->db->get_where('mahasiswa', array('iduser' => $iduser))->row();
 		if ($mahasiswa) {
 			$idmahasiswa = $mahasiswa->id;
 			
 			$pendaftar_list = $this->db->get_where('pendaftar', array('idmahasiswa' => $idmahasiswa))->result();
 			foreach ($pendaftar_list as $pendaftar) {
-				$idpendaftar = $pendaftar->id;
-				
-				$peserta_list = $this->db->get_where('peserta', array('idpendaftar' => $idpendaftar))->result();
-				foreach ($peserta_list as $peserta) {
-					$idpeserta = $peserta->id;
-					
-					$penempatan_list = $this->db->get_where('penempatan', array('idpeserta' => $idpeserta))->result();
-					foreach ($penempatan_list as $penempatan) {
-						$idpenempatan = $penempatan->id;
-						
-						$aktifitas_list = $this->db->get_where('aktifitas', array('idpenempatan' => $idpenempatan))->result();
-						foreach ($aktifitas_list as $aktifitas) {
-							$idaktifitas = $aktifitas->id;
-							
-							$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_komentar');
-							$this->db->where('idaktifitas', $idaktifitas)->delete('aktifitas_upload');
-						}
-						$this->db->where('idpenempatan', $idpenempatan)->delete('aktifitas');
-						$this->db->where('idpenempatan', $idpenempatan)->delete('nilai');
-						$this->db->where('idpenempatan', $idpenempatan)->delete('output_penempatan');
-					}
-					$this->db->where('idpeserta', $idpeserta)->delete('penempatan');
+				$status = $this->delete_pendaftar_data($pendaftar->id);
+				if ($status !== true) {
+					$this->db->db_debug = $db_debug_original;
+					return $status;
 				}
-				$this->db->where('idpendaftar', $idpendaftar)->delete('peserta');
-				$this->db->where('idpendaftar', $idpendaftar)->delete('berkas_administrasi');
 			}
-			$this->db->where('idmahasiswa', $idmahasiswa)->delete('pendaftar');
 			$this->db->where('iduser', $iduser)->delete('mahasiswa');
 		}
 		
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 4))->delete('hakakses');
+
+		$db_error = $this->db->error();
+		$this->db->db_debug = $db_debug_original;
+
+		if ($db_error['code'] !== 0) {
+			return $db_error;
+		}
 		return true;
 	}
 
 	public function delete_pembimbing_data($iduser)
 	{
+		$db_debug_original = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+
 		$pembimbing = $this->db->get_where('pembimbing', array('iduser' => $iduser))->row();
 		if ($pembimbing) {
 			$idpembimbing = $pembimbing->id;
@@ -310,26 +341,67 @@ class Model_data extends CI_Model
 			$this->db->where('id', $idpembimbing)->delete('pembimbing');
 		}
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 3))->delete('hakakses');
+
+		$db_error = $this->db->error();
+		$this->db->db_debug = $db_debug_original;
+
+		if ($db_error['code'] !== 0) {
+			return $db_error;
+		}
 		return true;
 	}
 
 	public function delete_admin_role_data($iduser)
 	{
+		$db_debug_original = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+
 		$this->db->where('iduser', $iduser)->delete('admin');
 		$this->db->where(array('iduser' => $iduser, 'idgrup' => 1))->delete('hakakses');
+
+		$db_error = $this->db->error();
+		$this->db->db_debug = $db_debug_original;
+
+		if ($db_error['code'] !== 0) {
+			return $db_error;
+		}
 		return true;
 	}
 
 	public function delete_user_data($iduser)
 	{
-		$this->delete_mahasiswa_data($iduser);
-		$this->delete_pembimbing_data($iduser);
-		$this->delete_admin_role_data($iduser);
+		$db_debug_original = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+
+		$status = $this->delete_mahasiswa_data($iduser);
+		if ($status !== true) {
+			$this->db->db_debug = $db_debug_original;
+			return $status;
+		}
+
+		$status = $this->delete_pembimbing_data($iduser);
+		if ($status !== true) {
+			$this->db->db_debug = $db_debug_original;
+			return $status;
+		}
+
+		$status = $this->delete_admin_role_data($iduser);
+		if ($status !== true) {
+			$this->db->db_debug = $db_debug_original;
+			return $status;
+		}
 		
 		$this->db->where('iduser', $iduser)->update('berita', array('iduser' => null));
 		$this->db->where('iduser', $iduser)->delete('hakakses');
 		$this->db->where('iduser', $iduser)->delete('aktifitas_komentar');
 		$this->db->where('id', $iduser)->delete('user');
+
+		$db_error = $this->db->error();
+		$this->db->db_debug = $db_debug_original;
+
+		if ($db_error['code'] !== 0) {
+			return $db_error;
+		}
 		return true;
 	}
 }
