@@ -89,7 +89,7 @@ class File extends CI_Controller
                 "assets/img/wanita.png"
             );
             if (file_exists($dtmhs[$berkas]) && !in_array($dtmhs[$berkas], $exc)) {
-                unlink($dtmhs[$berkas]);
+                @unlink($dtmhs[$berkas]);
             }
         }
         //end cari data mahasiswa 
@@ -101,7 +101,7 @@ class File extends CI_Controller
             $fullpath = "./" . $tmppath;
 
             if (!file_exists($fullpath))
-                mkdir($fullpath, 0755, true);
+                @mkdir($fullpath, 0755, true);
             //echo $this->session->userdata('iduser');
             //die;
             //$config['file_name'] = $this->session->userdata('iduser');
@@ -123,9 +123,8 @@ class File extends CI_Controller
                         array("where", "idhakakses", $idhakakses),
                     );
 
-                $colName = ($table == 'user') ? 'path' : $berkas;
                 $dataSave = array(
-                    $colName => $tmppath . $file_info['file_name'],
+                    'path' => $tmppath . $file_info['file_name'],
                     'fileinfo' => json_encode($file_info),
                 );
                 //debug($kond, 0);
