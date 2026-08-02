@@ -122,13 +122,11 @@ $(document).on("click",".tambah-like",function(e) {
         iduser: $(this).data('iduser'),
         idaktifitas: $(this).data('idaktifitas')
     };
-    if(confirm("yakin kita mau kasi like? tidak bisami dibatalkan itu...")){
-        appAjax("dashboard/simpan_like", formVal).done(function(vRet) {        
-            showNotification(vRet.status, vRet.pesan);
-            if(vRet.status)
-                refreshlkh();
-        });    
-    }
+    appAjax("dashboard/simpan_like", formVal).done(function(vRet) {        
+        showNotification(vRet.status, vRet.pesan);
+        if(vRet.status)
+            refreshlkh();
+    });    
 });
 
 

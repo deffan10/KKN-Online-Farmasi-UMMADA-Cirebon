@@ -712,12 +712,27 @@ class Dashboard extends CI_Controller
             if ($this->form_validation->run()) {
                 $idaktifitas = $this->input->post('idaktifitas');
                 $iduser = $this->input->post('iduser');
-                $dataSave = array(
-                    'iduser' => $this->session->userdata('iduser'),
-                    'idaktifitas' => $idaktifitas,
-                );
-                $retVal = $this->Model_data->save($dataSave, "aktifitas_like", "like aktifitas", true);
-                $this->simpan_notif($idaktifitas, $iduser, "like");
+                $myIdUser = $this->session->userdata('iduser');
+
+                $cek = $this->db->get_where("aktifitas_like", array(
+                    "iduser" => $myIdUser,
+                    "idaktifitas" => $idaktifitas
+                ));
+
+                if ($cek->num_rows() > 0) {
+                    $kond = array(
+                        array("where", "iduser", $myIdUser),
+                        array("where", "idaktifitas", $idaktifitas)
+                    );
+                    $retVal = $this->Model_data->delete($kond, "aktifitas_like", "unlike aktifitas", true);
+                } else {
+                    $dataSave = array(
+                        'iduser' => $myIdUser,
+                        'idaktifitas' => $idaktifitas,
+                    );
+                    $retVal = $this->Model_data->save($dataSave, "aktifitas_like", "like aktifitas", true);
+                    $this->simpan_notif($idaktifitas, $iduser, "like");
+                }
             } else {
                 $retVal['pesan'] = $this->form_validation->error_array();
                 $retVal['status'] = false;
