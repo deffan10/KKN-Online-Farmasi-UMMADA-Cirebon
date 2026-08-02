@@ -118,7 +118,10 @@ $(document).on("click",".hapus-testimoni",function(e) {
 
 $(document).on("click",".tambah-like",function(e) {
     e.preventDefault();
-    let formVal = {idaktifitas:$(this).data('idaktifitas')};
+    let formVal = {
+        iduser: $(this).data('iduser'),
+        idaktifitas: $(this).data('idaktifitas')
+    };
     if(confirm("yakin kita mau kasi like? tidak bisami dibatalkan itu...")){
         appAjax("dashboard/simpan_like", formVal).done(function(vRet) {        
             showNotification(vRet.status, vRet.pesan);

@@ -134,6 +134,10 @@ $(document).on("submit",".fkomentar",function(e) {
 
 $("#kegiatankkn").submit(function(e){
     e.preventDefault();
+    let $btn = $(this).find("button[type='submit']");
+    if($btn.prop("disabled")) return false;
+    $btn.prop("disabled", true);
+
     getLocation();
     let formVal = {
         uraian:$(".ql-editor").html(),
@@ -146,6 +150,7 @@ $("#kegiatankkn").submit(function(e){
         longitude:longitude,
     };
     appAjax("dashboard/simpan", formVal).done(function(vRet) {        
+        $btn.prop("disabled", false);
         showNotification(vRet.status, vRet.pesan);
         if(vRet.status){
             resetform();
@@ -154,6 +159,8 @@ $("#kegiatankkn").submit(function(e){
             else
                 window.location.replace(vBase_url+"dashboard/personal/"+vRet.idpenempatan);
         }
+    }).fail(function(){
+        $btn.prop("disabled", false);
     });
 });
 

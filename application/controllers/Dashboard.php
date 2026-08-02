@@ -707,7 +707,7 @@ class Dashboard extends CI_Controller
 
         if ($this->session->userdata('iduser')) {
             $this->form_validation->set_rules('idaktifitas', 'aktifitas', 'trim|required');
-            $this->form_validation->set_rules('iduser', 'tujuan pengguna', 'trim|required');
+            $this->form_validation->set_rules('iduser', 'pembuat aktivitas', 'trim|required');
 
             if ($this->form_validation->run()) {
                 $idaktifitas = $this->input->post('idaktifitas');
@@ -856,7 +856,18 @@ class Dashboard extends CI_Controller
 
             if ($this->form_validation->run()) {
                 $id = $this->input->post("id");
-                if (akses_akun("delete", $otentikasi, "aktifitas", $id)->status) {
+                
+                // Cek kepemilikan aktivitas via join ke tabel penempatan -> peserta -> mahasiswa -> user
+                $this->db->from("aktifitas as a");
+                $this->db->join("penempatan as pm", "pm.id=a.idpenempatan", "left");
+                $this->db->join("peserta as ps", "pm.idpeserta=ps.id", "left");
+                $this->db->join("pendaftar as p", "p.id=ps.idpendaftar", "left");
+                $this->db->join("mahasiswa as m", "m.id=p.idmahasiswa", "left");
+                $this->db->where("a.id", $id);
+                $this->db->where("m.iduser", $this->session->userdata('iduser'));
+                $is_owner = $this->db->get()->num_rows() > 0;
+
+                if ($is_owner || akses_akun("delete", $otentikasi, "aktifitas", $id)->status) {
                     $kond = array(
                         array("where", "id", $id),
                     );
