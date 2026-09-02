@@ -525,9 +525,11 @@ class Web extends CI_Controller
             pm.id as idpenempatan,pm.idpeserta,pm.idjabatan,
             l.lastlogin,
             IF(DATE_ADD(NOW(), INTERVAL 8 HOUR)>=kn.bagikelompok,'terbuka','tertutup') as ketpublishkelompok,
+            COALESCE(ad.jml_aktifitas, 0) as jml_aktifitas
 
 		");
         $this->datatables->join("kelompok as k", "pk.id=k.idpembimbing_kkn", "left");
+        $this->datatables->join("(SELECT count(id) as jml_aktifitas, idkelompok FROM aktifitas_dpl GROUP BY idkelompok) as ad", "ad.idkelompok=k.id", "left");
 
         $this->datatables->join("penempatan as pm", "pm.idkelompok=k.id", "left");
         $this->datatables->join("lokasi as l", "l.id=k.idlokasi", "left");
@@ -576,8 +578,9 @@ class Web extends CI_Controller
                                             <h6>" . $dp['nama'] . "</h6> 
                                             <div style='font-size:12px'>NIP/NIDN : " . $dp['nip'] . "</div>
                                             <div style='font-size:12px'>Email : " . $email . "</div>
-                                            <div class='text-muted mb-0' style='font-size:12px'>
+                                            <div class='text-muted mb-0 mt-1' style='font-size:12px'>
                                                 <span class='badge bg-success'><i class='bi bi-clock'></i> " . waktu_lalu($dp['lastlogin']) . "</span>
+                                                <span class='badge bg-info'><i class='bi bi-activity'></i> " . intval($dp['jml_aktifitas']) . " Aktivitas</span>
                                             </div>
                                         </div>
                                     </div>";

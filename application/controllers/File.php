@@ -340,8 +340,8 @@ class File extends CI_Controller
                 //$config['file_name'] = $this->session->userdata('iduser');
                 $config['encrypt_name'] = TRUE;
                 $config['upload_path'] = $fullpath;
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-                $config['max_size'] = $this->config->item("max_size_img");
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|webp|pdf';
+                $config['max_size'] = 10240; // 10MB
                 $config['overwrite'] = true;
 
                 $this->load->library('upload', $config);
@@ -376,7 +376,7 @@ class File extends CI_Controller
                     $retVal = $this->Model_data->save($dataSave, $table, "lampiran aktifitas", true);
                 } else {
                     $retVal['pesan'] = array(
-                        "Upload hanya gambar atau PDF saja maksimal 750kb",
+                        strip_tags($this->upload->display_errors()),
                     );
                     $retVal['status'] = false;
                 }
