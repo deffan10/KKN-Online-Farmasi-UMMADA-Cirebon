@@ -572,6 +572,8 @@ class Web extends CI_Controller
             $tmp['namakelompok'] = $dp['namakelompok'];
             $tmp['lastlogin'] = $dp['lastlogin'];
 
+            $badgeAktifitas = "<a href='javascript:void(0)' class='badge bg-info text-white text-decoration-none btn-modal-aktifitas' data-idkelompok='" . $dp['idkelompok'] . "' data-namadpl='" . htmlspecialchars($dp['nama'], ENT_QUOTES) . "' data-namakelompok='" . htmlspecialchars($dp['namakelompok'], ENT_QUOTES) . "' title='Klik untuk melihat riwayat aktivitas'><i class='bi bi-activity'></i> " . intval($dp['jml_aktifitas']) . " Aktivitas</a>";
+
             $tmp['detdpl'] = "<div class='row'>
                                         <div class='col-3'>" . $profilpic . "</div>
                                         <div class='col-9'>
@@ -580,7 +582,7 @@ class Web extends CI_Controller
                                             <div style='font-size:12px'>Email : " . $email . "</div>
                                             <div class='text-muted mb-0 mt-1' style='font-size:12px'>
                                                 <span class='badge bg-success'><i class='bi bi-clock'></i> " . waktu_lalu($dp['lastlogin']) . "</span>
-                                                <span class='badge bg-info'><i class='bi bi-activity'></i> " . intval($dp['jml_aktifitas']) . " Aktivitas</span>
+                                                " . $badgeAktifitas . "
                                             </div>
                                         </div>
                                     </div>";
@@ -597,6 +599,19 @@ class Web extends CI_Controller
         }
 
         $retVal['data'] = $data;
+        die(json_encode($retVal));
+    }
+
+    public function read_aktifitas_dpl()
+    {
+        allowheader();
+        $this->load->library('Dataweb');
+        $idkelompok = $this->input->post('idkelompok');
+
+        $vCari = array(
+            array("cond" => "where", "fld" => "adp.idkelompok", "val" => $idkelompok),
+        );
+        $retVal = $this->dataweb->daftaraktifitas_dpl($vCari, 0, 0, "adp.waktu DESC");
         die(json_encode($retVal));
     }
 

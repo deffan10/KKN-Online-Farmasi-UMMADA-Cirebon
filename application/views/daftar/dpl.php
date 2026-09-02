@@ -37,4 +37,36 @@
         </div>
     </div>
 
+    <!-- Modal Detail Aktivitas DPL -->
+    <div class="modal fade" id="modalAktifitasDpl" tabindex="-1" aria-labelledby="modalAktifitasDplLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAktifitasDplLabel"><i class="bi bi-journal-text me-2"></i> Aktivitas DPL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                        <div>
+                            <h6 class="mb-0 text-primary" id="modalDplNama">-</h6>
+                            <small class="text-muted" id="modalDplKelompok">-</small>
+                        </div>
+                        <span class="badge bg-primary" id="modalTotalAktifitas">0 Aktivitas</span>
+                    </div>
+                    <div id="modalLoading" class="text-center py-4 d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted">Memuat data aktivitas...</p>
+                    </div>
+                    <div id="modalKontenAktifitas">
+                        <!-- Konten aktivitas di-render via JS -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
